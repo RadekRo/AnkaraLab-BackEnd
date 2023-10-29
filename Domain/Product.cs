@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AnkaraLab_BackEnd.WebAPI.Domain
 {
@@ -25,5 +27,9 @@ namespace AnkaraLab_BackEnd.WebAPI.Domain
         [Required]
         [MaxLength(4)]
         public int PhotoWidth { get; set; }
+        public Category Category { get; set; } = default!;
+        [Required]
+        [ForeignKey(nameof(Category))]
+        public int CategoryId { get; set; }
     }
 }
