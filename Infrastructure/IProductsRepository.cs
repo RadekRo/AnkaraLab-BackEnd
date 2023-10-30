@@ -6,7 +6,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
     {
         IEnumerable<Product> GetProducts();
 
-        Product GetProduct(int id);
+        Product? GetProduct(int id);
 
         void CreateProduct(Product product);
 
