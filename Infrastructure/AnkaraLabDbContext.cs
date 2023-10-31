@@ -35,9 +35,8 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
             (
                 new Product
                 {
-                    Subcategory = "10x15",
-                    Size = "10x15 cm",
-                    Description = "",
+                    Size = "10x15",
+                    Description = "Odbitka fotograficzna w formaciw 10x15",
                     Price = 0.90,
                     Deadline = 1,
                     IsAvaliable = true,
@@ -47,9 +46,8 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
                 },
                 new Product
                 {
-                    Subcategory = "15x21",
-                    Size = "15x21 cm",
-                    Description = "",
+                    Size = "15x21",
+                    Description = "Odbitka fotograficzna w formacie 15x21",
                     Price = 2.00,
                     Deadline = 1,
                     IsAvaliable = true,

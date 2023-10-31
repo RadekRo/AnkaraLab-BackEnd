@@ -9,8 +9,6 @@ namespace AnkaraLab_BackEnd.WebAPI.Domain
         [Key]
         public int Id { get; }
         [Required]
-        public string Subcategory { get; set; } = string.Empty;
-        [Required]
         public string Size { get; set; } = string.Empty;
         [Required]
         [StringLength(250)]

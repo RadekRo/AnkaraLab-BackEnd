@@ -21,6 +21,18 @@ public class Program
         builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
         builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
+        builder.Services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(policyBuilder =>
+            {
+                policyBuilder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            });
+            // WithOrigins("http://localhost:5173")
+        });
+
         builder.Services.AddControllers().AddNewtonsoftJson(options =>
         {
             // required to prevent "Self referencing loop detected" error
@@ -43,6 +55,7 @@ public class Program
 
         app.UseAuthorization();
 
+        app.UseCors();
 
         app.MapControllers();
 
