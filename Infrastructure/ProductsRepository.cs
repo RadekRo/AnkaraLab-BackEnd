@@ -50,8 +50,6 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
             {
                 return false;
             }
-
-            productFromDb.Subcategory = product.Subcategory;
             productFromDb.Size = product.Size;
             productFromDb.Description = product.Description;
             productFromDb.Price = product.Price;
