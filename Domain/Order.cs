@@ -1,11 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AnkaraLab_BackEnd.WebAPI.Domain
 {
     public class Order
     {
         [Key]
-        public int OrderId { get; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int OrderId { get; set; }
         [Required]
         [StringLength(250)]
         public string? DeliveryAddress { get; set; }

@@ -6,7 +6,7 @@ namespace AnkaraLab_BackEnd.WebAPI.DTOs
 {
     public class ProductDto
     {
-        public int Id { get; }
+        public int Id { get; set; }
         public string Size { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public double Price { get; set; }

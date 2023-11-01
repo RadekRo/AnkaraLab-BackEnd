@@ -12,7 +12,6 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
     {
         public DbSet<Product> Products => Set<Product>();
         public DbSet<Category> Categories => Set<Category>();
-
         public DbSet<Order> Orders => Set<Order>();
 
         public AnkaraLabDbContext(DbContextOptions<AnkaraLabDbContext> options) : base(options)
@@ -25,11 +24,13 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
             (
                 new Category
                 {
+                    Id = 1,
                     Name = "Odbitka",
                     Description = "Odbitka fotograficzna z procesu fotochemicznego"
                 },
                 new Category
                 {
+                    Id = 2,
                     Name = "Wydruk wielkoformatowy",
                     Description = "Wydruk atramentowy wysokiej jakości"
                 }
@@ -39,6 +40,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
             (
                 new Product
                 {
+                    Id = 1,
                     Size = "10x15",
                     Description = "Odbitka fotograficzna w formaciw 10x15",
                     Price = 0.90,
@@ -50,6 +52,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
                 },
                 new Product
                 {
+                    Id = 2,
                     Size = "15x21",
                     Description = "Odbitka fotograficzna w formacie 15x21",
                     Price = 2.00,
@@ -65,6 +68,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
             (
             new Order
                 {
+                    OrderId = 1,
                     DeliveryAddress = "Polna 10",
                     InvoiceAddress = "Rolnicza 12",
                     PaymentMethod = "Blik",
@@ -73,6 +77,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
         },
                 new Order
                 {
+                    OrderId = 2,
                     DeliveryAddress = "Stara 210",
                     InvoiceAddress = "Woronicza 121",
                     PaymentMethod = "PayU",

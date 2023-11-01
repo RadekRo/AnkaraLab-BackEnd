@@ -7,7 +7,8 @@ namespace AnkaraLab_BackEnd.WebAPI.Domain
     public class Product
     {
         [Key]
-        public int Id { get; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         [Required]
         public string Size { get; set; } = string.Empty;
         [Required]
