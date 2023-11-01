@@ -1,5 +1,6 @@
 ﻿using AnkaraLab_BackEnd.WebAPI.DTOs;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AnkaraLab_BackEnd.WebAPI.Controllers
@@ -11,18 +12,20 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductsRepository _productsRepository;
-        public ProductsController(IProductsRepository productsRepository)
+        private readonly IMapper _mapper;
+        public ProductsController(IProductsRepository productsRepository, IMapper mapper)
         {
             _productsRepository = productsRepository ?? throw new ArgumentNullException(nameof(productsRepository));
-
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<ProductDto>> GetProducts()
         {
             var products = _productsRepository.GetProducts();
+            var productsDto = _mapper.Map<IEnumerable<ProductDto>>(products);
 
-            return Ok(products);
+            return Ok(productsDto);
         }
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]

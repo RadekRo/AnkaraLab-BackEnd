@@ -14,6 +14,5 @@ namespace AnkaraLab_BackEnd.WebAPI.DTOs
         public bool IsAvaliable { get; set; }
         public int PhotoHeight { get; set; }
         public int PhotoWidth { get; set; }
-        public Category Category { get; set; } = default!;
     }
 }
