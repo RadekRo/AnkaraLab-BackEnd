@@ -11,6 +11,8 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
         public DbSet<Product> Products => Set<Product>();
         public DbSet<Category> Categories => Set<Category>();
 
+        public DbSet<Order> Orders => Set<Order>();
+
         public AnkaraLabDbContext(DbContextOptions<AnkaraLabDbContext> options) : base(options)
         {
         }
