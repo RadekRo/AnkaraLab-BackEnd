@@ -15,6 +15,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             {
                 _ordersRepository = ordersRepository ?? throw new ArgumentNullException(nameof(ordersRepository));
             }
+        // GET api/orders
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<OrderDto>> GetOrders()
@@ -23,6 +24,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
 
             return Ok(orders);
         }
+        // GET api/orders/{id}
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
