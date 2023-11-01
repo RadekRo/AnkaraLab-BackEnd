@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using static AnkaraLab_BackEnd.WebAPI.Infrastructure.PaymentMethodEnum;
+using static AnkaraLab_BackEnd.WebAPI.Infrastructure.PaymentStatusEnum;
 
 namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
 {
@@ -56,6 +58,25 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
                     PhotoHeight = 152,
                     PhotoWidth = 210,
                     CategoryId = 1
+                }
+            );
+
+            modelBuilder.Entity<Order>().HasData
+            (
+            new Order
+                {
+                    DeliveryAddress = "Polna 10",
+                    InvoiceAddress = "Rolnicza 12",
+                    PaymentMethod = "Blik",
+                    PaymentStatus = "Pending"
+                    
+        },
+                new Order
+                {
+                    DeliveryAddress = "Stara 210",
+                    InvoiceAddress = "Woronicza 121",
+                    PaymentMethod = "PayU",
+                    PaymentStatus = "Failed"
                 }
             );
         }

@@ -1,24 +1,20 @@
-﻿namespace AnkaraLab_BackEnd.WebAPI.Domain
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AnkaraLab_BackEnd.WebAPI.Domain
 {
     public class Order
     {
+        [Key]
         public int OrderId { get; }
-        public string DeliveryAddress { get; set; }
+        [Required]
+        [StringLength(250)]
+        public string? DeliveryAddress { get; set; }
 
-        public string InvoiceAddress { get; set; }
+        public string? InvoiceAddress { get; set; }
 
-        public string PaymentMethod { get; set; }
-
-        public string PaymentStatus { get; set; }
-
-        public Order(int orderId, string deliveryAddress, string invoiceAddress, string paymentMethod, string paymentStatus)
-        {
-            OrderId = orderId;
-            DeliveryAddress = deliveryAddress;
-            PaymentMethod = paymentMethod;
-            PaymentStatus = paymentStatus;
-            InvoiceAddress = invoiceAddress;
-        }
+        [Required]
+        public string? PaymentMethod { get; set; }
+        [Required]
+        public string? PaymentStatus { get; set; }
     }
-
 }
