@@ -13,11 +13,18 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
 
         public void CreateBasket(Basket basket) 
         {
-            _dbContext.Baskets.Add(basket);
+            if (! _dbContext.Baskets.Contains(basket)) 
+            { 
+                _dbContext.Baskets.Add(basket); 
+                _dbContext.SaveChanges();
+            }
+            
         }
-        public void DeleteBasket(Basket basket) 
+        public bool DeleteBasket(Basket basket) 
         { 
-            _dbContext.Baskets.Add(basket); 
+            _dbContext.Baskets.Remove(basket);
+            _dbContext.SaveChanges();
+            return true;
         }
     }
 }
