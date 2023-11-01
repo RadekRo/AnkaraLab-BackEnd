@@ -9,8 +9,6 @@ namespace AnkaraLab_BackEnd.WebAPI.Domain
         [Key]
         public int Id { get; }
         [Required]
-        public string WebPage { get; } = "ALab";
-        [Required]
         public string Size { get; set; } = string.Empty;
         [Required]
         [StringLength(250)]
