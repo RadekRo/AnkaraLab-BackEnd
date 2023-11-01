@@ -86,7 +86,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
             (
             new Order
                 {
-                    OrderId = 1,
+                    Id = 1,
                     DeliveryAddress = "Polna 10",
                     InvoiceAddress = "Rolnicza 12",
                     PaymentMethod = "Blik",
@@ -95,7 +95,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
         },
                 new Order
                 {
-                    OrderId = 2,
+                    Id = 2,
                     DeliveryAddress = "Stara 210",
                     InvoiceAddress = "Woronicza 121",
                     PaymentMethod = "PayU",

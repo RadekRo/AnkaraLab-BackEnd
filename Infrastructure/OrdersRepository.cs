@@ -33,7 +33,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
         }
         public bool UpdateOrder(Order order)
         {
-            var orderFromDb = _dbContext.Orders.SingleOrDefault(o => o.Id == order.id);
+            var orderFromDb = _dbContext.Orders.SingleOrDefault(o => o.Id == order.Id);
 
             if (orderFromDb is null)
             {
