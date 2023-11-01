@@ -54,24 +54,24 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         }
 
         // POST api/orders
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult CreateOrder([FromBody] OrderForCreationDto orderForCreationDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[HttpPost]
+        //[ProducesResponseType(StatusCodes.Status201Created)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //public IActionResult CreateOrder([FromBody] OrderForCreationDto orderForCreationDto)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            var order = _mapper.Map<Order>(orderForCreationDto);
+        //    var order = _mapper.Map<Order>(orderForCreationDto);
 
-            _ordersRepository.CreateOrder(order);
+        //    _ordersRepository.CreateOrder(order);
 
-            var orderDto = _mapper.Map<OrderDto>(order);
+        //    var orderDto = _mapper.Map<OrderDto>(order);
 
-            return CreatedAtAction(nameof(GetOrder), new { id = order.Id }, orderDto);
-        }
+        //    return CreatedAtAction(nameof(GetOrder), new { id = order.Id }, orderDto);
+        //}
     }
 }
 
