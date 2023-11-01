@@ -10,5 +10,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
         void CreateOrder(Order order);
         bool UpdateOrder(Order order);
         bool DeleteOrder(int orderId);
+        IEnumerable<Order> GetPaymentMethod();
+        IEnumerable<Order> GetPaymentStatus();
     }
 }

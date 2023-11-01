@@ -3,10 +3,8 @@
 namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
 {
     public class OrdersRepository : IOrdersRepository
-
     {
         private readonly AnkaraLabDbContext _dbContext;
-
         public OrdersRepository(AnkaraLabDbContext dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
@@ -16,12 +14,10 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
             _dbContext.Orders.Add(order);
             _dbContext.SaveChanges();
         }
-
         public Order? GetOrder(int orderId)
         {
             return _dbContext.Orders.SingleOrDefault(o => o.OrderId == orderId);
         }
-
         public bool DeleteOrder(int orderId)
         {
             var order = _dbContext.Orders.SingleOrDefault(o => o.OrderId == orderId);
@@ -35,7 +31,6 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
 
             return true;
         }
-
         public bool UpdateOrder(Order order)
         {
             var orderFromDb = _dbContext.Orders.SingleOrDefault(o => o.OrderId == order.OrderId);
@@ -57,6 +52,14 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
             var query = _dbContext.Orders.AsQueryable();
 
             return query.ToList();
+        }
+        IEnumerable<Order> IOrdersRepository.GetPaymentMethod()
+        {
+            return (IEnumerable<Order>)Enum.GetValues(typeof(PaymentMethodEnum.PaymentMethod)).Cast<PaymentMethodEnum.PaymentMethod>();
+        }
+        public IEnumerable<Order> GetPaymentStatus()
+        {
+            return (IEnumerable<Order>)Enum.GetValues(typeof(PaymentStatusEnum.PaymentStatus)).Cast<PaymentStatusEnum.PaymentStatus>();
         }
     }
 }
