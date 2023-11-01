@@ -17,6 +17,41 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
             _dbContext.SaveChanges();
         }
 
+        public Order? GetOrder(int orderId)
+        {
+            return _dbContext.Orders.SingleOrDefault(o => o.OrderId == orderId);
+        }
+
+        public bool DeleteOrder(int orderId)
+        {
+            var order = _dbContext.Orders.SingleOrDefault(o => o.OrderId == orderId);
+
+            if (order is null)
+            {
+                return false;
+            }
+            _dbContext.Orders.Remove(order);
+            _dbContext.SaveChanges();
+
+            return true;
+        }
+
+        public bool UpdateOrder(Order order)
+        {
+            var orderFromDb = _dbContext.Orders.SingleOrDefault(o => o.OrderId == order.OrderId);
+
+            if (orderFromDb is null)
+            {
+                return false;
+            }
+            orderFromDb.DeliveryAddress = order.DeliveryAddress;
+            orderFromDb.InvoiceAddress = order.InvoiceAddress;
+            orderFromDb.PaymentMethod = order.PaymentMethod;
+            orderFromDb.PaymentStatus = order.PaymentStatus;
+            
+            _dbContext.SaveChanges();
+            return true;
+        }
         public IEnumerable<Order> GetOrders()
         {
             throw new NotImplementedException();
