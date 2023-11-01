@@ -9,6 +9,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Configurations.Mapper
         public OrderProfile()
         {
             CreateMap<Order, OrderDto>();
-        } 
+            CreateMap<OrderForCreationDto, Order>();
+        }
     }
 }
