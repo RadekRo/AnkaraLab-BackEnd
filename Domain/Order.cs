@@ -7,7 +7,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Domain
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int OrderId { get; set; }
+        public int Id { get; set; }
         [Required]
         [StringLength(250)]
         public string? DeliveryAddress { get; set; }

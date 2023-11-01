@@ -14,13 +14,13 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
             _dbContext.Orders.Add(order);
             _dbContext.SaveChanges();
         }
-        public Order? GetOrder(int orderId)
+        public Order? GetOrder(int id)
         {
-            return _dbContext.Orders.SingleOrDefault(o => o.OrderId == orderId);
+            return _dbContext.Orders.SingleOrDefault(o => o.Id == id);
         }
-        public bool DeleteOrder(int orderId)
+        public bool DeleteOrder(int id)
         {
-            var order = _dbContext.Orders.SingleOrDefault(o => o.OrderId == orderId);
+            var order = _dbContext.Orders.SingleOrDefault(o => o.Id == id);
 
             if (order is null)
             {
@@ -33,7 +33,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
         }
         public bool UpdateOrder(Order order)
         {
-            var orderFromDb = _dbContext.Orders.SingleOrDefault(o => o.OrderId == order.OrderId);
+            var orderFromDb = _dbContext.Orders.SingleOrDefault(o => o.Id == order.id);
 
             if (orderFromDb is null)
             {

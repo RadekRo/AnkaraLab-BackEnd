@@ -7,10 +7,10 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
     [Route("api/files")]
     public class FilesController : ControllerBase
     {
-        [HttpPost("upload")]
-        public async Task<IActionResult> UploadFiles([FromForm] Files files) 
-        { 
+        //[HttpPost("upload")]
+        //public async Task<IActionResult> UploadFiles([FromForm] Files files) 
+        //{ 
             
-        }
+        //}
     }
 }

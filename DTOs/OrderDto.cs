@@ -4,7 +4,7 @@ namespace AnkaraLab_BackEnd.WebAPI.DTOs
 {
     public class OrderDto
     {
-        public int OrderId { get; set; }
+        public int Id { get; set; }
 
         public string DeliveryAddress { get; set; } = string.Empty;
 
