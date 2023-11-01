@@ -33,6 +33,12 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
                     Id = 2,
                     Name = "Wydruk wielkoformatowy",
                     Description = "Wydruk atramentowy wysokiej jakości"
+                },
+                new Category
+                {
+                    Id = 3,
+                    Name = "Gadżety",
+                    Description = "Gadżety z plików cyfrowych"
                 }
             );
 
@@ -61,6 +67,18 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
                     PhotoHeight = 152,
                     PhotoWidth = 210,
                     CategoryId = 1
+                },
+                new Product
+                {
+                    Id = 3,
+                    Size = "10x10",
+                    Description = "Fotokula śnieżna",
+                    Price = 25.00,
+                    Deadline = 3,
+                    IsAvaliable = true,
+                    PhotoHeight = 100,
+                    PhotoWidth = 100,
+                    CategoryId = 3
                 }
             );
 

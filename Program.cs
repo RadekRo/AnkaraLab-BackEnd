@@ -14,7 +14,7 @@ public class Program
         // Add services to the container.
         builder.Services.AddDbContext<AnkaraLabDbContext>(options =>
         {
-            options.UseSqlServer(builder.Configuration.GetConnectionString("AnkaraLabDb"));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("AnkaraDb"));
             options.EnableSensitiveDataLogging(builder.Environment.IsDevelopment());
         });
 
