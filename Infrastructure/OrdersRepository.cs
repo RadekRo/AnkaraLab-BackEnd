@@ -54,7 +54,9 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
         }
         public IEnumerable<Order> GetOrders()
         {
-            throw new NotImplementedException();
+            var query = _dbContext.Orders.AsQueryable();
+
+            return query.ToList();
         }
     }
 }
