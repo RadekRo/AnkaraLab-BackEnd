@@ -10,12 +10,12 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         [HttpPost("upload")]
         public async Task<IActionResult> UploadFiles([FromForm] Files files)
         {
-            if (files.Files == null || files.Files.Count == 0)
+            if (files.UserFiles == null || files.UserFiles.Count == 0)
             {
                 return BadRequest("No files uploaded.");
             }
 
-            foreach (var file in files.Files)
+            foreach (var file in files.UserFiles)
             {
                 var filePath = Path.Combine("uploads", file.FileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
