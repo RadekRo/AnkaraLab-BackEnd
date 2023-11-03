@@ -1,7 +1,7 @@
 ﻿using AnkaraLab_BackEnd.WebAPI.Domain;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
 
-namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
+namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
 {
     public class BasketItemsRepository : IBasketItemsRepository
     {
@@ -29,9 +29,9 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
         public bool UpdateItem(BasketItems basketItem)
         {
             var basketItemFromDb = _dbContext.BasketItems.SingleOrDefault(b => b.Id == basketItem.Id);
-            if (basketItemFromDb == null) 
-            { 
-                return false; 
+            if (basketItemFromDb == null)
+            {
+                return false;
             }
             basketItemFromDb.Product = basketItem.Product;
             basketItemFromDb.Quantity = basketItem.Quantity;

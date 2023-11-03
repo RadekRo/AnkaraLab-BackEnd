@@ -1,7 +1,7 @@
 ﻿using AnkaraLab_BackEnd.WebAPI.Domain;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
 
-namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
+namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
 {
     public class ProductsRepository : IProductsRepository
     {
@@ -27,7 +27,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
             }
             _dbContext.Products.Remove(product);
             _dbContext.SaveChanges();
-            
+
             return true;
         }
 
