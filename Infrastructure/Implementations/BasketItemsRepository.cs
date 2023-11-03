@@ -1,4 +1,5 @@
 ﻿using AnkaraLab_BackEnd.WebAPI.Domain;
+using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
 
 namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
 {

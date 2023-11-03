@@ -1,6 +1,7 @@
 ﻿using AnkaraLab_BackEnd.WebAPI.Domain;
+using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
 
-namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
+namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
 {
     public class CategoryRepository : ICategoryRepository
     {
@@ -17,7 +18,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
 
         public bool UpdateCategory(Category category)
         {
-            var categoryFromDb = _dbContext.Categories.SingleOrDefault(c  => c.Id == category.Id);
+            var categoryFromDb = _dbContext.Categories.SingleOrDefault(c => c.Id == category.Id);
             if (categoryFromDb is null)
             {
                 return false;

@@ -1,6 +1,6 @@
 ﻿using AnkaraLab_BackEnd.WebAPI.Domain;
 
-namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
+namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces
 {
     public interface ICategoryRepository
     {

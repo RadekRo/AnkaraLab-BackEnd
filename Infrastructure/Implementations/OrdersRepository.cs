@@ -1,6 +1,7 @@
 ﻿using AnkaraLab_BackEnd.WebAPI.Domain;
+using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
 
-namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
+namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
 {
     public class OrdersRepository : IOrdersRepository
     {
@@ -43,7 +44,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
             orderFromDb.InvoiceAddress = order.InvoiceAddress;
             orderFromDb.PaymentMethod = order.PaymentMethod;
             orderFromDb.PaymentStatus = order.PaymentStatus;
-            
+
             _dbContext.SaveChanges();
             return true;
         }

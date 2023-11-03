@@ -1,5 +1,7 @@
 
 using AnkaraLab_BackEnd.WebAPI.Infrastructure;
+using AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations;
+using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 

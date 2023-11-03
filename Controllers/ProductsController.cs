@@ -1,5 +1,5 @@
 ﻿using AnkaraLab_BackEnd.WebAPI.DTOs;
-using AnkaraLab_BackEnd.WebAPI.Infrastructure;
+using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
