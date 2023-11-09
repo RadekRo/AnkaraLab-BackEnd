@@ -18,11 +18,12 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             _productsRepository = productsRepository ?? throw new ArgumentNullException(nameof(productsRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
-        [HttpGet]
+        [HttpGet("/category/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<IEnumerable<ProductDto>> GetProducts()
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<IEnumerable<ProductDto>> GetProducts(int categoryId)
         {
-            var products = _productsRepository.GetProducts();
+            var products = _productsRepository.GetProducts(categoryId);
             var productsDto = _mapper.Map<IEnumerable<ProductDto>>(products);
 
             return Ok(productsDto);
@@ -39,5 +40,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             }
             return Ok(product);
         }
+       
+        
     }
 }
