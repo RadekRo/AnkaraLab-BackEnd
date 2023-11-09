@@ -30,6 +30,12 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
 
             return true;
         }
+        public IEnumerable<Product> GetProductByCategory(int categoryId) 
+        { 
+            var products = _dbContext.Products.Where(p => p.CategoryId == categoryId).AsQueryable();
+
+        return products.ToList();
+        }
 
         public Product? GetProduct(int id)
         {
