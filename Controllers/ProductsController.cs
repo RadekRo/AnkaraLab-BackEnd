@@ -29,6 +29,10 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             {
                 return BadRequest(); 
             }
+            if (product == null) 
+            {
+                return NotFound();
+            }
             return Ok(product);
         }
         
