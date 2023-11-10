@@ -9,7 +9,6 @@ namespace AnkaraLab_BackEnd.WebAPI.Configurations.Mapper
         public BasketItemProfile()
         {
             CreateMap<BasketItems, BasketItemsDto>();
-            
         }
     }
 }
