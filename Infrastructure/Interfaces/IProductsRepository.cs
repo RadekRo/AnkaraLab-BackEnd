@@ -4,7 +4,6 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces
 {
     public interface IProductsRepository
     {
-        IEnumerable <Product> GetProducts();
         Product? GetProduct(int id);
         void CreateProduct(Product product);
         bool UpdateProduct(Product product);

@@ -19,16 +19,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             _productsRepository = productsRepository ?? throw new ArgumentNullException(nameof(productsRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
-        [HttpGet("/api/products")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<IEnumerable<ProductDto>> GetProducts()
-        {
-            var products = _productsRepository.GetProducts();
-            var productsDto = _mapper.Map<IEnumerable<ProductDto>>(products);
 
-            return Ok(productsDto);
-        }
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -53,6 +44,4 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             return Ok(productsDto);
         }
     }
-
-
 }

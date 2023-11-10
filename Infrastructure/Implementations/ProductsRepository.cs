@@ -43,12 +43,6 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Product> GetProducts()
-        {
-            var query = _dbContext.Products.AsQueryable();
-            return query.ToList();
-        }
-
         public IEnumerable<Product> GetProductsByCategory(int categoryId)
         {
             var query = _dbContext.Products.AsQueryable();
@@ -76,7 +70,5 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             _dbContext.SaveChanges();
             return true;
         }
-
-        
     }
 }
