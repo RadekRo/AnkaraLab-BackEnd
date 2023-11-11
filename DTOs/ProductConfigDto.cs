@@ -2,5 +2,7 @@
 {
     public class ProductConfigDto
     {
+        int Id { get; set; }
+        int CategoryId { get; set; }
     }
 }
