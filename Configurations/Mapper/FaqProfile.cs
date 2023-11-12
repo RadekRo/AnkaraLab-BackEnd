@@ -9,6 +9,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Configurations.Mapper
         public FaqProfile()
         {
             CreateMap<Faq, FaqDto>();
+            CreateMap<FaqForCreationDto, Faq>();
         } 
     }
 }
