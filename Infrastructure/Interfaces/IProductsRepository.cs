@@ -1,4 +1,5 @@
 ﻿using AnkaraLab_BackEnd.WebAPI.Domain;
+using Microsoft.Identity.Client;
 
 namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces
 {

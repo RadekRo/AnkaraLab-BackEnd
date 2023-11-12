@@ -1,8 +1,10 @@
-﻿using AnkaraLab_BackEnd.WebAPI.DTOs;
+﻿using AnkaraLab_BackEnd.WebAPI.Domain;
+using AnkaraLab_BackEnd.WebAPI.DTOs;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
 
 namespace AnkaraLab_BackEnd.WebAPI.Controllers
 {
@@ -42,6 +44,39 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             var productsDto = _mapper.Map<IEnumerable<ProductDto>>(products);
 
             return Ok(productsDto);
+        }
+
+        [HttpDelete("api/products/delete/{id:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult DeleteProduct(int id) 
+        {
+            var productToDelete = _productsRepository.DeleteProduct(id);
+            if (productToDelete == false) 
+            {
+                return NotFound("There is no such item"); 
+            }
+            return Ok(productToDelete);
+        }
+
+        [HttpPut("api/products/new")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult AddProduct([FromBody]ProductDto product)
+        {
+            var productDb = new Product
+            {
+                Deadline = product.Deadline,
+                Size = product.Size,
+                Description = product.Description,
+                IsAvaliable = product.IsAvaliable,
+                PhotoHeight = product.PhotoHeight,
+                PhotoWidth = product.PhotoWidth,
+                Price = product.Price,
+                CategoryId = product.CategoryId
+                
+            };
+            _productsRepository.CreateProduct(productDb);
+            return Ok(productDb);
         }
     }
 }
