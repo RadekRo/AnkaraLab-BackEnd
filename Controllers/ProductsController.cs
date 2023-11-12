@@ -1,4 +1,5 @@
 ﻿using AnkaraLab_BackEnd.WebAPI.DTOs;
+using AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -18,33 +19,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             _productsRepository = productsRepository ?? throw new ArgumentNullException(nameof(productsRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
-        [HttpGet("getProductByCategory/{categoryId}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult GetProductByCategory(int categoryId)
-        {
-            var product = _productsRepository.GetProductByCategory(categoryId);
-            if (categoryId == 0) 
-            {
-                return BadRequest(); 
-            }
-            if (product == null) 
-            {
-                return NotFound();
-            }
-            return Ok(product);
-        }
-        
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<IEnumerable<ProductDto>> GetProducts()
-        {
-            var products = _productsRepository.GetProducts();
-            var productsDto = _mapper.Map<IEnumerable<ProductDto>>(products);
 
-            return Ok(productsDto);
-        }
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -56,6 +31,30 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
                 return NotFound(); 
             }
             return Ok(product);
+        }
+
+        [HttpGet("/api/products/byCategory/{categoryId:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<IEnumerable<ProductDto>> GetProductsByCategory(int categoryId)
+        {
+            var products = _productsRepository.GetProductsByCategory(categoryId);
+            var productsDto = _mapper.Map<IEnumerable<ProductDto>>(products);
+
+            return Ok(productsDto);
+        }
+
+        [HttpDelete("api/products/delete/{id:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult DeleteProduct(int id) 
+        {
+            var productToDelete = _productsRepository.DeleteProduct(id);
+            if (productToDelete == false) 
+            {
+                return NotFound("There is no such item"); 
+            }
+            return Ok(productToDelete);
         }
 
     }

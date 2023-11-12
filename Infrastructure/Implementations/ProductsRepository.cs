@@ -1,5 +1,7 @@
 ﻿using AnkaraLab_BackEnd.WebAPI.Domain;
+using AnkaraLab_BackEnd.WebAPI.DTOs;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
+using System.Linq;
 
 namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
 {
@@ -42,10 +44,10 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             return _dbContext.Products.SingleOrDefault(p => p.Id == id);
         }
 
-        public IEnumerable<Product> GetProducts()
+        public IEnumerable<Product> GetProductsByCategory(int categoryId)
         {
             var query = _dbContext.Products.AsQueryable();
-
+            query = query.Where(p => p.CategoryId == categoryId);
             return query.ToList();
         }
 
