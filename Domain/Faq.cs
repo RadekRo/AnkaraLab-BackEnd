@@ -10,8 +10,8 @@ namespace AnkaraLab_BackEnd.WebAPI.Domain
         public int Id { get; set; }
 
         [Required]
-        public string Question { get; set; }
+        public string? Question { get; set; }
         [Required]
-        public string Answer { get; set; }
+        public string? Answer { get; set; }
     }
 }
