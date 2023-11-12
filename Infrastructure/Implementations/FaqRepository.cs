@@ -10,54 +10,50 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
-        public void CreateAnswer(Faq answer)
+
+        public void CreateFaq(Faq faq)
         {
-            _dbContext.Faqs.Add(answer);
+            _dbContext.Faqs.Add(faq);
             _dbContext.SaveChanges();
         }
-
-        public void CreateQuestion(Faq question)
+        public bool DeleteFaq(int id)
         {
-            _dbContext.Faqs.Add(question);
-            _dbContext.SaveChanges();
-        }
+            var faq = _dbContext.Faqs.SingleOrDefault(f => f.Id == id);
 
-        public bool DeleteAnswer(int id)
-        {
-            var answer = _dbContext.Faqs.SingleOrDefault(a => a.Id == id);
-
-            if (answer is null)
+            if (faq is null)
             {
                 return false;
             }
-            _dbContext.Faqs.Remove(answer);
+            _dbContext.Faqs.Remove(faq);
             _dbContext.SaveChanges();
 
             return true;
         }
-
-        public bool DeleteQuestion(int id)
+        public Faq? GetFaq(int id)
         {
-            var question = _dbContext.Faqs.SingleOrDefault(q => q.Id == id);
+            return _dbContext.Faqs.SingleOrDefault(f => f.Id == id);
+        }
 
-            if (question is null)
+        public IEnumerable<Faq> GetFaqs()
+        {
+            var query = _dbContext.Faqs.AsQueryable();
+
+            return query.ToList();
+        }
+        public bool UpdateFaq(Faq faq)
+        {
+            var faqFromDb = _dbContext.Faqs.SingleOrDefault(f => f.Id == faq.Id);
+
+            if (faqFromDb is null)
             {
                 return false;
             }
-            _dbContext.Faqs.Remove(question);
+            faqFromDb.Answer = faq.Answer;
+            faqFromDb.Question = faq.Question;
+
+
             _dbContext.SaveChanges();
-
             return true;
-        }
-
-        public bool UpdateAnswer(int id, Faq answer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool UpdateQuestion(int id, Faq question)
-        {
-            throw new NotImplementedException();
         }
     }
 }
