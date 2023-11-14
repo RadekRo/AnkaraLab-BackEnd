@@ -18,9 +18,18 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Get Current Branch Name
+        id: get_branch
+        run: echo "::set-output name=branch::$(echo ${GITHUB_REF#refs/heads/})"
+
       - name: Create Pull Request
         run: |
-          # Use the GitHub CLI to create a pull request
-          pr_title=$(gh pr create --base main --head ${{ github.ref }} --title "GitHub Actions: Automated Pull Request" --body "This pull request was automatically created by the GitHub Actions." --fill)
-          echo "Automatic pull request has been created. Title: $pr_title. Thank you."
+          current_branch=${{ steps.get_branch.outputs.branch }}
+          if [ "$current_branch" != "main" ]; then
+            pr_title=$(gh pr create --base=main --head="$current_branch" --title "GitHub Actions: Automated Pull Request" --body "This pull request was automatically created by the GitHub Actions." --fill)
+            echo "Automatic pull request has been created from $current_branch to main. Title: $pr_title. Thank you."
+          fi
+
+
+
 
