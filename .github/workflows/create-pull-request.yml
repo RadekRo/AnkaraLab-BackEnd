@@ -11,6 +11,8 @@ on:
 jobs:
   create-pull-request:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Checkout Repository
@@ -19,5 +21,6 @@ jobs:
       - name: Create Pull Request
         run: |
           # Use the GitHub CLI to create a pull request
-          pr_title=$(gh pr create --base main --head ${{ github.ref }} --title "GitHub Actions: Automated Pull Request" --body "This pull request was automatically created by the GitHub Actions." --fill --silent)
+          pr_title=$(gh pr create --base main --head ${{ github.ref }} --title "GitHub Actions: Automated Pull Request" --body "This pull request was automatically created by the GitHub Actions." --fill)
           echo "Automatic pull request has been created. Title: $pr_title. Thank you."
+
