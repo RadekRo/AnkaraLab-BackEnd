@@ -26,8 +26,8 @@ jobs:
         run: |
           current_branch=${{ steps.get_branch.outputs.branch }}
           if [ "$current_branch" != "main" ]; then
-            pr_title=$(gh pr create --base=main --head="$current_branch" --title "GitHub Actions: Automated Pull Request" --body "This pull request was automatically created by the GitHub Actions." --fill)
-            echo "Automatic pull request has been created from $current_branch to main. Title: $pr_title. Thank you."
+            pr_title=$(gh pr create --base=main --head="$current_branch" --title "GitHub Actions. Automated Pull Request" --body "This pull request was automatically created by the GitHub Actions." --fill)
+            echo "Automatic pull request has been created from $current_branch to main. Title: $pr_title."
           fi
 
 
