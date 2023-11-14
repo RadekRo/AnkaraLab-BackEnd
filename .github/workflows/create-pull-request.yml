@@ -1,0 +1,23 @@
+name: Create Pull Request
+
+on:
+  push:
+    branches:
+      - '*'
+    # Excluded branches: [main]
+    paths-ignore:
+      - 'main/**'
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Create Pull Request
+        run: |
+          # GitHub CLI : create a pull request
+          pr_title=$(gh pr create --base main --head ${{ github.ref }} --title "GitHub Actions: Automated Pull Request" --body "This pull request was automatically created by the GitHub Actions." --json title --silent)
+          echo "Automatic pull request has been created on branch: $pr_title. Thank you."
