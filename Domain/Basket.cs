@@ -1,11 +1,16 @@
-﻿namespace AnkaraLab_BackEnd.WebAPI.Domain
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace AnkaraLab_BackEnd.WebAPI.Domain
 {
     public class Basket
     {
         public int Id { get; set; }
-        public decimal TotalPrice { get; set; }
-        public List<BasketItems> BasketItems { get; set; } = new List<BasketItems>();
-
-
+        public int ClientId { get; set; }
+        [Required]
+        [ForeignKey(nameof(Product))]
+        public int ProductId { get; set; }
+        public int Quantity { get; set; }
+        public int OrderId { get; set; }
     }
 }
