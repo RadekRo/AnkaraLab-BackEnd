@@ -122,6 +122,26 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
                     Answer = "Tak, nie ma konieczności przerabiania plików, jeśli aparat zapisuje je w formacie obsługiwanym przez maszynę (patrz, pkt.1). Uwaga! Maszyna nie akceptuje plików RAW. Aby uzyskać najlepsze efekty zdjęcia można skadrować, znając dokładne formaty odbitek i ew. obrobić kolorystycznie, pamiętając o kalibracji monitora."
                 }
             );
+
+            modelBuilder.Entity<Basket>().HasData
+            (
+                new Basket
+                {
+                    Id = 1,
+                    ClientId = 1,
+                    ProductId = 1,
+                    Quantity = 1,
+                    OrderId = 1
+                },
+                new Basket
+                {
+                    Id = 2,
+                    ClientId = 2,
+                    ProductId = 2,
+                    Quantity = 2,
+                    OrderId = 2
+                }
+            );
         } 
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AnkaraLab_BackEnd.WebAPI.Controllers
 {
     [ApiController]
-    [Route("api/baket")]
+    [Route("api/basket")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public class BasketsController : ControllerBase
