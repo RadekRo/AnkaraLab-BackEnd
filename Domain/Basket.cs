@@ -11,6 +11,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Domain
         [ForeignKey(nameof(Product))]
         public int ProductId { get; set; }
         public int Quantity { get; set; }
+        [ForeignKey(nameof(Order))]
         public int OrderId { get; set; }
     }
 }
