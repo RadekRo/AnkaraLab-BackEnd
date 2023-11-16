@@ -4,11 +4,12 @@ using AutoMapper;
 
 namespace AnkaraLab_BackEnd.WebAPI.Configurations.Mapper
 {
-    public class BasektProfile : Profile
+    public class BasketProfile : Profile
     {
-        public BasektProfile()
+        public BasketProfile()
         {
             CreateMap<Basket, BasketDto>();
+            CreateMap<BasketForCreationDto, Basket>();
         }
     }
 }

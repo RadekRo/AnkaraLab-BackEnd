@@ -19,13 +19,13 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
 
         public bool DeleteBasket(int id)
         {
-            var basket = _dbContext.Faqs.SingleOrDefault(b => b.Id == id);
+            var basket = _dbContext.Baskets.SingleOrDefault(b => b.Id == id);
 
             if (basket is null)
             {
                 return false;
             }
-            _dbContext.Faqs.Remove(basket);
+            _dbContext.Baskets.Remove(basket);
             _dbContext.SaveChanges();
 
             return true;

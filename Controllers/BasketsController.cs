@@ -61,7 +61,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
 
             _basketRepository.CreateBasket(basket);
 
-            var basketDto = _mapper.Map<FaqDto>(basket);
+            var basketDto = _mapper.Map<BasketDto>(basket);
 
             return CreatedAtAction(nameof(GetBasket), new { id = basket.Id }, basketDto);
         }
