@@ -21,6 +21,15 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<IEnumerable<BasketDto>> GetBaskets()
+        {
+            var baskets = _basketRepository.GetBaskets();
+
+            return Ok(baskets);
+        }
+
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

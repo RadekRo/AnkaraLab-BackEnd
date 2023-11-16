@@ -36,6 +36,13 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             return _dbContext.Baskets.SingleOrDefault(b => b.Id == id);
         }
 
+        public IEnumerable<Basket> GetBaskets()
+        {
+            var query = _dbContext.Baskets.AsQueryable();
+
+            return query.ToList();
+        }
+
         public bool UpdateBasket(Basket basket)
         {
             var basketFromDb = _dbContext.Baskets.SingleOrDefault(b => b.Id == basket.Id);
