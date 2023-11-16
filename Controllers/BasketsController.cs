@@ -34,7 +34,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             return Ok(basket);
         }
 
-        [HttpDelete("api/basket/delete/{id:int}")]
+        [HttpDelete("delete/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult DeleteBasket(int id)
@@ -64,6 +64,22 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             var basketDto = _mapper.Map<BasketDto>(basket);
 
             return CreatedAtAction(nameof(GetBasket), new { id = basket.Id }, basketDto);
+        }
+
+        [HttpPut("/new")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult AddBasket([FromBody] BasketDto basket)
+        {
+            var basketDb = new Basket
+            {
+                ClientId = basket.ClientId,
+                ProductId = basket.ProductId,
+                Quantity = basket.Quantity,
+                OrderId = basket.OrderId
+            };
+
+            _basketRepository.CreateBasket(basketDb);
+            return Ok(basketDb);
         }
     }
 }
