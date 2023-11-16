@@ -66,7 +66,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             productFromDb.IsAvaliable = product.IsAvaliable;
             productFromDb.PhotoHeight = product.PhotoHeight;
             productFromDb.PhotoWidth = product.PhotoWidth;
-            productFromDb.Category = product.Category;
+            productFromDb.CategoryId = product.CategoryId;
 
             _dbContext.SaveChanges();
             return true;

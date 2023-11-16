@@ -1,4 +1,3 @@
-
 using AnkaraLab_BackEnd.WebAPI.Infrastructure;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
@@ -23,6 +22,7 @@ public class Program
         builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
         builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
         builder.Services.AddScoped<IFaqRepository, FaqRepository>();
+        builder.Services.AddScoped<IBasketRepository, BasketRepository>();
         builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
         builder.Services.AddCors(options =>

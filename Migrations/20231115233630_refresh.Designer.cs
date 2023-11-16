@@ -3,6 +3,7 @@ using AnkaraLab_BackEnd.WebAPI.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnkaraLab_BackEnd.WebAPI.Migrations
 {
     [DbContext(typeof(AnkaraLabDbContext))]
-    partial class AnkaraLabDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231115233630_refresh")]
+    partial class refresh
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,13 +131,13 @@ namespace AnkaraLab_BackEnd.WebAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 11,
+                            Id = 1,
                             Answer = "dlab-2 (maszyna znajdująca się w posiadaniu AnkaraLab.com) naświetla zdjęcia z plików zapisanych w formatach .jpg, .tif, .bmp, .psd, których wielkość nie przekracza 100 Mb (przed kompresją).",
                             Question = "Jakie formaty plików są odczytywane prez laba?"
                         },
                         new
                         {
-                            Id = 22,
+                            Id = 2,
                             Answer = "Tak, nie ma konieczności przerabiania plików, jeśli aparat zapisuje je w formacie obsługiwanym przez maszynę (patrz, pkt.1). Uwaga! Maszyna nie akceptuje plików RAW. Aby uzyskać najlepsze efekty zdjęcia można skadrować, znając dokładne formaty odbitek i ew. obrobić kolorystycznie, pamiętając o kalibracji monitora.",
                             Question = "Czy można wywołać zdjęcia z plików prosto z aparatu?"
                         });

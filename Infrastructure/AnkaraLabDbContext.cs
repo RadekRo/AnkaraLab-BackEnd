@@ -15,7 +15,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
         public DbSet<Order> Orders => Set<Order>();
         public DbSet<Faq> Faqs => Set<Faq>();
         public DbSet<LoyaltyProgram> LoyaltyPrograms => Set<LoyaltyProgram>();
-        public DbSet<Basket> Basket => Set<Basket>();
+        public DbSet<Basket> Baskets => Set<Basket>();
 
 
         public AnkaraLabDbContext(DbContextOptions<AnkaraLabDbContext> options) : base(options)
@@ -109,17 +109,37 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure
 
             modelBuilder.Entity<Faq>().HasData
             (
-                new Faq
+            new Faq
                 {
-                    Id = 1,
+                    Id = 11,
                     Question = "Jakie formaty plików są odczytywane prez laba?",
                     Answer = "dlab-2 (maszyna znajdująca się w posiadaniu AnkaraLab.com) naświetla zdjęcia z plików zapisanych w formatach .jpg, .tif, .bmp, .psd, których wielkość nie przekracza 100 Mb (przed kompresją)."
                 },
-                new Faq
+            new Faq
                 {
-                    Id = 2,
+                    Id = 22,
                     Question = "Czy można wywołać zdjęcia z plików prosto z aparatu?",
                     Answer = "Tak, nie ma konieczności przerabiania plików, jeśli aparat zapisuje je w formacie obsługiwanym przez maszynę (patrz, pkt.1). Uwaga! Maszyna nie akceptuje plików RAW. Aby uzyskać najlepsze efekty zdjęcia można skadrować, znając dokładne formaty odbitek i ew. obrobić kolorystycznie, pamiętając o kalibracji monitora."
+                }
+            );
+
+            modelBuilder.Entity<Basket>().HasData
+            (
+                new Basket
+                {
+                    Id = 1,
+                    ClientId = 1,
+                    ProductId = 1,
+                    Quantity = 1,
+                    OrderId = 1
+                },
+                new Basket
+                {
+                    Id = 2,
+                    ClientId = 2,
+                    ProductId = 2,
+                    Quantity = 2,
+                    OrderId = 2
                 }
             );
         } 
