@@ -15,10 +15,12 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
     {
         private readonly IBasketRepository _basketRepository;
         private readonly IMapper _mapper;
-        public BasketsController(IBasketRepository basketRepository, IMapper mapper)
+        private readonly ILogger<BasketsController> _logger;
+        public BasketsController(IBasketRepository basketRepository, IMapper mapper, ILogger<BasketsController> logger)
         {
             _basketRepository = basketRepository ?? throw new ArgumentNullException(nameof(basketRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         [HttpGet]
@@ -26,6 +28,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         public ActionResult<IEnumerable<BasketDto>> GetBaskets()
         {
             var baskets = _basketRepository.GetBaskets();
+            _logger.LogInformation("Estabilished connection with database. Retrieved all contacts.");
 
             return Ok(baskets);
         }
