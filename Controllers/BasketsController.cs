@@ -23,27 +23,15 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<IEnumerable<BasketDto>> GetBaskets()
-        {
-            var baskets = _basketRepository.GetBaskets();
-            _logger.LogInformation("Estabilished connection with database. Retrieved all contacts.");
-
-            return Ok(baskets);
-        }
-
-        [HttpGet("{id:int}")]
+        [HttpGet("{clientId:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<BasketDto> GetBasket(int id)
+        public ActionResult<IEnumerable<BasketDto>> GetBaskets(int clientId)
         {
-            var basket= _basketRepository.GetBasket(id);
-            if (basket is null)
-            {
-                return NotFound();
-            }
-            return Ok(basket);
+            var baskets = _basketRepository.GetBaskets(clientId);
+            _logger.LogInformation("Estabilished connection with database. Retrieved all items for client: {clientId}.", clientId);
+
+            return Ok(baskets);
         }
 
         [HttpDelete("delete/{id:int}")]
@@ -75,7 +63,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
 
             var basketDto = _mapper.Map<BasketDto>(basket);
 
-            return CreatedAtAction(nameof(GetBasket), new { id = basket.Id }, basketDto);
+            return CreatedAtAction(nameof(GetBaskets), new { id = basket.Id }, basketDto);
         }
 
         [HttpPut("/new")]
