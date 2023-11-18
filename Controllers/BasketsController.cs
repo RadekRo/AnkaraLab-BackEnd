@@ -63,7 +63,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
 
             var basketDto = _mapper.Map<BasketDto>(basket);
 
-            return CreatedAtAction(nameof(GetBaskets), new { id = basket.Id }, basketDto);
+            return Ok();
         }
 
         [HttpPut("/new")]
