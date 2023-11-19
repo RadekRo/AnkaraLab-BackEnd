@@ -22,9 +22,9 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         // GET api/orders
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<IEnumerable<OrderDto>> GetOrders()
+        public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrders()
         {
-            var orders = _ordersRepository.GetOrders();
+            var orders = await _ordersRepository.GetOrdersAsync();
 
             return Ok(orders);
         }
@@ -32,9 +32,9 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<OrderDto> GetOrder(int id)
+        public async Task<ActionResult<OrderDto>> GetOrder(int id)
         {
-            var order = _ordersRepository.GetOrder(id);
+            var order = await _ordersRepository.GetOrderAsync(id);
             if (order is null)
             {
                 return NotFound();
@@ -46,9 +46,9 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult DeleteOrder(int id)
+        public async Task<IActionResult> DeleteOrder(int id)
         {
-            var success = _ordersRepository.DeleteOrder(id);
+            var success = await _ordersRepository.DeleteOrderAsync(id);
 
             return success ? NoContent() : NotFound();
         }
