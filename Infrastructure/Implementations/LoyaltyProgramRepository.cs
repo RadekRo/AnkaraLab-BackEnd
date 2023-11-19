@@ -1,5 +1,6 @@
 ﻿using AnkaraLab_BackEnd.WebAPI.Domain;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
 {
@@ -13,53 +14,50 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
         }
 
         
-        public void AddLoyaltyProgram(LoyaltyProgram loyaltyProgram)
+        public async Task AddLoyaltyProgramAsync(LoyaltyProgram loyaltyProgram)
         {
                 _dbContext.LoyaltyPrograms.Add(loyaltyProgram);
-                _dbContext.SaveChanges();
-            }
-            public bool DeleteLoyaltyProgram(int id)
+                await _dbContext.SaveChangesAsync();
+        }
+        public async Task<bool> DeleteLoyaltyProgramAsync(int id)
             {
-                var loyaltyProgram = _dbContext.LoyaltyPrograms.SingleOrDefault(lp => lp.Id == id);
+                var loyaltyProgram = await _dbContext.LoyaltyPrograms.SingleOrDefaultAsync(lp => lp.Id == id);
 
-                if (loyaltyProgram is null)
+            if (loyaltyProgram is null)
                 {
                     return false;
                 }
                 _dbContext.LoyaltyPrograms.Remove(loyaltyProgram);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
 
                 return true;
             }
             
 
-            public IEnumerable<LoyaltyProgram> GetFaqs()
+            public async Task<IEnumerable<LoyaltyProgram>> GetFaqsAsync()
             {
                 var query = _dbContext.LoyaltyPrograms.AsQueryable();
 
-                return query.ToList();
+                return await query.ToListAsync();
             }
-            public bool UpdateLoyaltyProgram(LoyaltyProgram loyaltyProgram)
+            public async Task<bool> UpdateLoyaltyProgramAsync(LoyaltyProgram loyaltyProgram)
             {
-                var loyaltyProgramFromDb = _dbContext.LoyaltyPrograms.SingleOrDefault(f => f.Id == loyaltyProgram.Id);
+                var loyaltyProgramFromDb = await _dbContext.LoyaltyPrograms.SingleOrDefaultAsync(f => f.Id == loyaltyProgram.Id);
 
-                if (loyaltyProgramFromDb is null)
+            if (loyaltyProgramFromDb is null)
                 {
                     return false;
                 }
-            
-
-
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
                 return true;
             }
 
-        public IEnumerable<LoyaltyProgram> GetLoyaltyPrograms()
+        public async Task<IEnumerable<LoyaltyProgram>> GetLoyaltyProgramsAsync()
         {
             throw new NotImplementedException();
         }
 
-        public LoyaltyProgram GetLoyaltyProgramById(int id)
+        public async Task<LoyaltyProgram> GetLoyaltyProgramByIdAsync(int id)
         {
             throw new NotImplementedException();
         }

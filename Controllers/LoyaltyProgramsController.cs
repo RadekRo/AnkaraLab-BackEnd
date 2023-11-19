@@ -20,17 +20,17 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetLoyaltyPrograms()
+        public async Task<IActionResult> GetLoyaltyPrograms()
         {
-            var loyaltyPrograms = _repository.GetLoyaltyPrograms();
+            var loyaltyPrograms = await _repository.GetLoyaltyProgramsAsync();
             var loyaltyProgramDtos = _mapper.Map<IEnumerable<LoyaltyProgramDto>>(loyaltyPrograms);
             return Ok(loyaltyProgramDtos);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetLoyaltyProgramById(int id)
+        public async Task<IActionResult> GetLoyaltyProgramById(int id)
         {
-            var loyaltyProgram = _repository.GetLoyaltyProgramById(id);
+            var loyaltyProgram = await _repository.GetLoyaltyProgramByIdAsync(id);
             if (loyaltyProgram == null)
             {
                 return NotFound();
@@ -41,37 +41,37 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddLoyaltyProgram(LoyaltyProgramDto loyaltyProgramDto)
+        public async Task<IActionResult> AddLoyaltyProgram(LoyaltyProgramDto loyaltyProgramDto)
         {
             var loyaltyProgram = _mapper.Map<LoyaltyProgram>(loyaltyProgramDto);
-            _repository.AddLoyaltyProgram(loyaltyProgram);
+            await _repository.AddLoyaltyProgramAsync(loyaltyProgram);
             return Ok(loyaltyProgramDto);
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateLoyaltyProgram(int id, LoyaltyProgramDto loyaltyProgramDto)
+        public async Task<IActionResult> UpdateLoyaltyProgram(int id, LoyaltyProgramDto loyaltyProgramDto)
         {
-            var existingLoyaltyProgram = _repository.GetLoyaltyProgramById(id);
+            var existingLoyaltyProgram = await _repository.GetLoyaltyProgramByIdAsync(id);
             if (existingLoyaltyProgram == null)
             {
                 return NotFound();
             }
 
             _mapper.Map(loyaltyProgramDto, existingLoyaltyProgram);
-            _repository.UpdateLoyaltyProgram(existingLoyaltyProgram);
+            await _repository.UpdateLoyaltyProgramAsync(existingLoyaltyProgram);
             return Ok(loyaltyProgramDto);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteLoyaltyProgram(int id)
+        public async Task<IActionResult> DeleteLoyaltyProgram(int id)
         {
-            var existingLoyaltyProgram = _repository.GetLoyaltyProgramById(id);
+            var existingLoyaltyProgram = await _repository.GetLoyaltyProgramByIdAsync(id);
             if (existingLoyaltyProgram == null)
             {
                 return NotFound();
             }
 
-            _repository.DeleteLoyaltyProgram(id);
+            await _repository.DeleteLoyaltyProgramAsync(id);
             return NoContent();
         }
     }
