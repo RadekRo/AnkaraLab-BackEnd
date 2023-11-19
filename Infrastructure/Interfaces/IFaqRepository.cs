@@ -6,8 +6,8 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces
     {
         Task<IEnumerable<Faq>> GetFaqsAsync();
         Task<Faq?> GetFaqAsync(int id);
-        void CreateFaq(Faq faq);
-        bool UpdateFaq(Faq faq);
+        Task CreateFaqAsync(Faq faq);
+        Task<bool> UpdateFaqAsync(Faq faq);
         Task<bool> DeleteFaqAsync(int id);
     }
 }

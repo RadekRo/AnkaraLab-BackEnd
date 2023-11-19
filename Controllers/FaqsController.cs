@@ -58,7 +58,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult CreateFaq([FromBody] FaqForCreationDto faqForCreationDto)
+        public async Task<IActionResult> CreateFaq([FromBody] FaqForCreationDto faqForCreationDto)
         {
             if (!ModelState.IsValid)
             {
@@ -67,7 +67,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
 
             var faq = _mapper.Map<Faq>(faqForCreationDto);
 
-            _faqRepository.CreateFaq(faq);
+            await _faqRepository.CreateFaqAsync(faq);
 
             var faqDto = _mapper.Map<FaqDto>(faq);
 

@@ -1,5 +1,6 @@
 ﻿using AnkaraLab_BackEnd.WebAPI.Domain;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
 {
@@ -11,38 +12,38 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
-        public void CreateFaq(Faq faq)
+        public async Task CreateFaqAsync(Faq faq)
         {
             _dbContext.Faqs.Add(faq);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
-        public bool DeleteFaq(int id)
+        public async Task<bool> DeleteFaqAsync(int id)
         {
-            var faq = _dbContext.Faqs.SingleOrDefault(f => f.Id == id);
+            var faq = await _dbContext.Faqs.SingleOrDefaultAsync(f => f.Id == id);
 
             if (faq is null)
             {
                 return false;
             }
             _dbContext.Faqs.Remove(faq);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
 
             return true;
         }
-        public Faq? GetFaq(int id)
+        public async Task<Faq?> GetFaqAsync(int id)
         {
-            return _dbContext.Faqs.SingleOrDefault(f => f.Id == id);
+            return await _dbContext.Faqs.SingleOrDefaultAsync(f => f.Id == id);
         }
 
-        public IEnumerable<Faq> GetFaqs()
+        public async Task<IEnumerable<Faq>> GetFaqsAsync()
         {
             var query = _dbContext.Faqs.AsQueryable();
 
-            return query.ToList();
+            return await query.ToListAsync();
         }
-        public bool UpdateFaq(Faq faq)
+        public async Task<bool> UpdateFaqAsync(Faq faq)
         {
-            var faqFromDb = _dbContext.Faqs.SingleOrDefault(f => f.Id == faq.Id);
+            var faqFromDb = await _dbContext.Faqs.SingleOrDefaultAsync(f => f.Id == faq.Id);
 
             if (faqFromDb is null)
             {
@@ -52,7 +53,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             faqFromDb.Question = faq.Question;
 
 
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
             return true;
         }
     }
