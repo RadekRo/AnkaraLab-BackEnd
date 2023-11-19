@@ -25,9 +25,9 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<ProductDto> GetProduct(int id) 
+        public async Task<ActionResult<ProductDto>> GetProduct(int id) 
         {
-            var product = _productsRepository.GetProduct(id);
+            var product = await _productsRepository.GetProductAsync(id);
             if (product is null) 
             { 
                 return NotFound(); 
@@ -38,9 +38,9 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         [HttpGet("/api/products/byCategory/{categoryId:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<IEnumerable<ProductDto>> GetProductsByCategory(int categoryId)
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProductsByCategory(int categoryId)
         {
-            var products = _productsRepository.GetProductsByCategory(categoryId);
+            var products = await _productsRepository.GetProductsByCategoryAsync(categoryId);
             var productsDto = _mapper.Map<IEnumerable<ProductDto>>(products);
 
             return Ok(productsDto);
@@ -49,9 +49,9 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         [HttpDelete("api/products/delete/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult DeleteProduct(int id) 
+        public async Task<ActionResult> DeleteProduct(int id) 
         {
-            var productToDelete = _productsRepository.DeleteProduct(id);
+            var productToDelete = await _productsRepository.DeleteProductAsync(id);
             if (productToDelete == false) 
             {
                 return NotFound("There is no such item"); 

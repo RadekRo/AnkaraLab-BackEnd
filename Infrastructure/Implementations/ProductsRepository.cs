@@ -1,6 +1,7 @@
 ﻿using AnkaraLab_BackEnd.WebAPI.Domain;
 using AnkaraLab_BackEnd.WebAPI.DTOs;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
@@ -19,29 +20,29 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             _dbContext.SaveChanges();
         }
 
-        public bool DeleteProduct(int id)
+        public async Task<bool> DeleteProductAsync(int id)
         {
-            var product = _dbContext.Products.SingleOrDefault(p => p.Id == id);
+            var product = await _dbContext.Products.SingleOrDefaultAsync(p => p.Id == id);
 
             if (product is null)
             {
                 return false;
             }
             _dbContext.Products.Remove(product);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
 
             return true;
         }
-        public IEnumerable<Product> GetProductByCategory(int categoryId) 
+        public async Task<IEnumerable<Product>> GetProductsByCategoryAsync(int categoryId) 
         { 
             var products = _dbContext.Products.Where(p => p.CategoryId == categoryId).AsQueryable();
 
-        return products.ToList();
+        return await products.ToListAsync();
         }
 
-        public Product? GetProduct(int id)
+        public async Task<Product?> GetProductAsync(int id)
         {
-            return _dbContext.Products.SingleOrDefault(p => p.Id == id);
+            return await _dbContext.Products.SingleOrDefaultAsync(p => p.Id == id);
         }
 
         public IEnumerable<Product> GetProductsByCategory(int categoryId)
@@ -51,9 +52,9 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             return query.ToList();
         }
 
-        public bool UpdateProduct(Product product)
+        public async Task<bool> UpdateProductAsync(Product product)
         {
-            var productFromDb = _dbContext.Products.SingleOrDefault(p => p.Id == product.Id);
+            var productFromDb = await _dbContext.Products.SingleOrDefaultAsync(p => p.Id == product.Id);
 
             if (productFromDb is null)
             {
@@ -68,7 +69,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             productFromDb.PhotoWidth = product.PhotoWidth;
             productFromDb.CategoryId = product.CategoryId;
 
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
             return true;
         }
     }
