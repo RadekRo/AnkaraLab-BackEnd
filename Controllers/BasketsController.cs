@@ -26,9 +26,9 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         [HttpGet("{clientId:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<IEnumerable<BasketDto>> GetBaskets(int clientId)
+        public async Task<ActionResult<IEnumerable<BasketDto>>> GetBaskets(int clientId)
         {
-            var baskets = _basketRepository.GetBaskets(clientId);
+            var baskets = await _basketRepository.GetBasketsAsync(clientId);
             _logger.LogInformation("Estabilished connection with database. Retrieved all items for client: {clientId}.", clientId);
 
             return Ok(baskets);
@@ -37,9 +37,9 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         [HttpDelete("delete/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult DeleteBasket(int id)
+        public async Task<ActionResult> DeleteBasket(int id)
         {
-            var basketToDelete = _basketRepository.DeleteBasket(id);
+            var basketToDelete = await _basketRepository.DeleteBasketAsync(id);
             if (basketToDelete == false)
             {
                 return NotFound("There is no such item");
@@ -50,7 +50,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult CreateBasket([FromBody] BasketForCreationDto basketForCreationDto)
+        public async Task<IActionResult> CreateBasket([FromBody] BasketForCreationDto basketForCreationDto)
         {
             if (!ModelState.IsValid)
             {
@@ -59,7 +59,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
 
             var basket = _mapper.Map<Basket>(basketForCreationDto);
 
-            _basketRepository.CreateBasket(basket);
+            await _basketRepository.CreateBasketAsync(basket);
             var basketDto = _mapper.Map<BasketDto>(basket);
 
             return Ok(basketDto);
@@ -67,7 +67,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
 
         [HttpPut("/new")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult AddBasket([FromBody] BasketDto basket)
+        public async Task<ActionResult> AddBasket([FromBody] BasketDto basket)
         {
             var basketDb = new Basket
             {
@@ -77,7 +77,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
                 OrderId = basket.OrderId
             };
 
-            _basketRepository.CreateBasket(basketDb);
+            await _basketRepository.CreateBasketAsync(basketDb);
             return Ok(basketDb);
         }
     }

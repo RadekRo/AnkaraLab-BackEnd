@@ -53,7 +53,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
         {
             var query = _dbContext.Orders.AsQueryable();
 
-            return query.ToList();
+            return await query.ToListAsync();
         }
         IEnumerable<Order> IOrdersRepository.GetPaymentMethod()
         {

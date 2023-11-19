@@ -73,18 +73,5 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
 
             return CreatedAtAction(nameof(GetFaq), new { id = faq.Id }, faqDto);
         }
-
-        //[HttpPut("api/faq/new")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //public ActionResult AddFaq([FromBody] FaqDto faq)
-        //{
-        //    var faqDb = new Faq
-        //    {
-        //        Question = faq.Question,
-        //        Answer = faq.Answer
-        //    };
-        //    _faqRepository.CreateFaq(faqDb);
-        //    return Ok(faqDb);
-        //}
     }
 }
