@@ -3,6 +3,7 @@ using AnkaraLab_BackEnd.WebAPI.DTOs;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace AnkaraLab_BackEnd.WebAPI.Controllers
 {
@@ -14,10 +15,12 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
     {
         private readonly IFaqRepository _faqRepository;
         private readonly IMapper _mapper;
-        public FaqsController(IFaqRepository faqRepository, IMapper mapper)
+        private readonly ILogger<FaqsController> _logger;
+        public FaqsController(IFaqRepository faqRepository, IMapper mapper, ILogger<FaqsController> logger)
         {
             _faqRepository = faqRepository ?? throw new ArgumentNullException(nameof(faqRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         [HttpGet]
@@ -25,7 +28,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         public async Task<ActionResult<IEnumerable<FaqDto>>> GetFaqs()
         {
             var faqs = await _faqRepository.GetFaqsAsync();
-
+            _logger.LogInformation("Estabilished connection with database. Retrieved all frequently asked questions:");
             return Ok(faqs);
         }
 
