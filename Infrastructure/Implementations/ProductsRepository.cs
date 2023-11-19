@@ -14,10 +14,10 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
-        public void CreateProduct(Product product)
+        public async Task CreateProduct(Product product)
         {
             _dbContext.Products.Add(product);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<bool> DeleteProductAsync(int id)
