@@ -51,8 +51,6 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             }
             faqFromDb.Answer = faq.Answer;
             faqFromDb.Question = faq.Question;
-
-
             await _dbContext.SaveChangesAsync();
             return true;
         }

@@ -23,6 +23,7 @@ public class Program
         builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
         builder.Services.AddScoped<IFaqRepository, FaqRepository>();
         builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+        builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
         builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
         builder.Services.AddCors(options =>

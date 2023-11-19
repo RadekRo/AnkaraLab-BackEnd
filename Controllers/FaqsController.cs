@@ -42,7 +42,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             return Ok(faq);
         }
 
-        [HttpDelete("api/faq/delete/{id:int}")]
+        [HttpDelete("delete/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> DeleteFaq(int id)

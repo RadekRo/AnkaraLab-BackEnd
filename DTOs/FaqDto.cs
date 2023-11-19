@@ -1,6 +1,4 @@
-﻿using Microsoft.Identity.Client;
-
-namespace AnkaraLab_BackEnd.WebAPI.DTOs
+﻿namespace AnkaraLab_BackEnd.WebAPI.DTOs
 {
     public class FaqDto
     {
