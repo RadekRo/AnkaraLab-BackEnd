@@ -5,10 +5,10 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces
 {
     public interface IProductsRepository
     {
-        Product? GetProduct(int id);
+        Task<Product?> GetProductAsync(int id);
         void CreateProduct(Product product);
-        bool UpdateProduct(Product product);
-        bool DeleteProduct(int id);
-        IEnumerable<Product> GetProductsByCategory(int categoryId);
+        Task<bool> UpdateProductAsync(Product product);
+        Task<bool> DeleteProductAsync(int id);
+        Task<IEnumerable<Product>> GetProductsByCategoryAsync(int categoryId);
     }
 }
