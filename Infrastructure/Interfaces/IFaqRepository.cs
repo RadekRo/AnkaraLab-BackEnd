@@ -4,10 +4,10 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces
 {
     public interface IFaqRepository
     {
-        IEnumerable<Faq> GetFaqs();
-        Faq? GetFaq(int id);
+        Task<IEnumerable<Faq>> GetFaqsAsync();
+        Task<Faq?> GetFaqAsync(int id);
         void CreateFaq(Faq faq);
         bool UpdateFaq(Faq faq);
-        bool DeleteFaq(int id);
+        Task<bool> DeleteFaqAsync(int id);
     }
 }

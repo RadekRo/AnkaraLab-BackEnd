@@ -22,9 +22,9 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<IEnumerable<FaqDto>> GetFaqs()
+        public async Task<ActionResult<IEnumerable<FaqDto>>> GetFaqs()
         {
-            var faqs = _faqRepository.GetFaqs();
+            var faqs = await _faqRepository.GetFaqsAsync();
 
             return Ok(faqs);
         }
@@ -32,9 +32,9 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<FaqDto> GetFaq(int id)
+        public async Task<ActionResult<FaqDto>> GetFaq(int id)
         {
-            var faq = _faqRepository.GetFaq(id);
+            var faq = await _faqRepository.GetFaqAsync(id);
             if (faq is null)
             {
                 return NotFound();
@@ -45,9 +45,9 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         [HttpDelete("api/faq/delete/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult DeleteFaq(int id)
+        public async Task<ActionResult> DeleteFaq(int id)
         {
-            var faqToDelete = _faqRepository.DeleteFaq(id);
+            var faqToDelete = await _faqRepository.DeleteFaqAsync(id);
             if (faqToDelete == false)
             {
                 return NotFound("There is no such item");
