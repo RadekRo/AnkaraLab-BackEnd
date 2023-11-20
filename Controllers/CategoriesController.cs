@@ -15,10 +15,12 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
-        public CategoriesController(ICategoryRepository categoryRepository, IMapper mapper)
+        private readonly ILogger<CategoriesController> _logger;
+        public CategoriesController(ICategoryRepository categoryRepository, IMapper mapper, ILogger<CategoriesController> logger)
         {
             _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         [HttpGet]
@@ -26,7 +28,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         public async Task<ActionResult<IEnumerable<CategoryDto>>> GetCategories()
         {
             var categories = await _categoryRepository.GetCategoriesAsync();
-
+            _logger.LogInformation("Estabilished connection with database. Retrieved all categories.");
             return Ok(categories);
         }
 
