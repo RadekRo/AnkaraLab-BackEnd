@@ -14,18 +14,20 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
     {
         private readonly IOrdersRepository _ordersRepository;
         private readonly IMapper _mapper;
-        public OrdersController(IOrdersRepository ordersRepository, IMapper mapper)
-            {
-                _ordersRepository = ordersRepository ?? throw new ArgumentNullException(nameof(ordersRepository));
-                _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            }
+        private readonly ILogger<OrdersController> _logger;
+        public OrdersController(IOrdersRepository ordersRepository, IMapper mapper, ILogger<OrdersController> logger)
+        {
+            _ordersRepository = ordersRepository ?? throw new ArgumentNullException(nameof(ordersRepository));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger)); ;
+        }
         // GET api/orders
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrders()
         {
             var orders = await _ordersRepository.GetOrdersAsync();
-
+            _logger.LogInformation("Estabilished connection with database. Retrieved all orders.");
             return Ok(orders);
         }
         // GET api/orders/{id}
