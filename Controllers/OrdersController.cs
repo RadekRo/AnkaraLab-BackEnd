@@ -14,27 +14,29 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
     {
         private readonly IOrdersRepository _ordersRepository;
         private readonly IMapper _mapper;
-        public OrdersController(IOrdersRepository ordersRepository, IMapper mapper)
-            {
-                _ordersRepository = ordersRepository ?? throw new ArgumentNullException(nameof(ordersRepository));
-                _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            }
+        private readonly ILogger<OrdersController> _logger;
+        public OrdersController(IOrdersRepository ordersRepository, IMapper mapper, ILogger<OrdersController> logger)
+        {
+            _ordersRepository = ordersRepository ?? throw new ArgumentNullException(nameof(ordersRepository));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger)); ;
+        }
         // GET api/orders
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<IEnumerable<OrderDto>> GetOrders()
+        public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrders()
         {
-            var orders = _ordersRepository.GetOrders();
-
+            var orders = await _ordersRepository.GetOrdersAsync();
+            _logger.LogInformation("Estabilished connection with database. Retrieved all orders.");
             return Ok(orders);
         }
         // GET api/orders/{id}
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<OrderDto> GetOrder(int id)
+        public async Task<ActionResult<OrderDto>> GetOrder(int id)
         {
-            var order = _ordersRepository.GetOrder(id);
+            var order = await _ordersRepository.GetOrderAsync(id);
             if (order is null)
             {
                 return NotFound();
@@ -46,9 +48,9 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult DeleteOrder(int id)
+        public async Task<IActionResult> DeleteOrder(int id)
         {
-            var success = _ordersRepository.DeleteOrder(id);
+            var success = await _ordersRepository.DeleteOrderAsync(id);
 
             return success ? NoContent() : NotFound();
         }

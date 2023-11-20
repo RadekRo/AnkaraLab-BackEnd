@@ -6,11 +6,11 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces
 
 public interface ILoyaltyProgramRepository
     {
-        IEnumerable<LoyaltyProgram> GetLoyaltyPrograms();
-        LoyaltyProgram GetLoyaltyProgramById(int id);
-        void AddLoyaltyProgram(LoyaltyProgram loyaltyProgram);
-        bool UpdateLoyaltyProgram(LoyaltyProgram loyaltyProgram);
-        bool DeleteLoyaltyProgram(int id);
+        Task<IEnumerable<LoyaltyProgram>> GetLoyaltyProgramsAsync();
+        Task<LoyaltyProgram> GetLoyaltyProgramByIdAsync(int id);
+        Task AddLoyaltyProgramAsync(LoyaltyProgram loyaltyProgram);
+        Task<bool> UpdateLoyaltyProgramAsync(LoyaltyProgram loyaltyProgram);
+        Task<bool> DeleteLoyaltyProgramAsync(int id);
     }
 }
 

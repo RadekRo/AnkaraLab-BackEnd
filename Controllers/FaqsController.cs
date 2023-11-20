@@ -3,6 +3,7 @@ using AnkaraLab_BackEnd.WebAPI.DTOs;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace AnkaraLab_BackEnd.WebAPI.Controllers
 {
@@ -14,27 +15,29 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
     {
         private readonly IFaqRepository _faqRepository;
         private readonly IMapper _mapper;
-        public FaqsController(IFaqRepository faqRepository, IMapper mapper)
+        private readonly ILogger<FaqsController> _logger;
+        public FaqsController(IFaqRepository faqRepository, IMapper mapper, ILogger<FaqsController> logger)
         {
             _faqRepository = faqRepository ?? throw new ArgumentNullException(nameof(faqRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<IEnumerable<FaqDto>> GetFaqs()
+        public async Task<ActionResult<IEnumerable<FaqDto>>> GetFaqs()
         {
-            var faqs = _faqRepository.GetFaqs();
-
+            var faqs = await _faqRepository.GetFaqsAsync();
+            _logger.LogInformation("Estabilished connection with database. Retrieved all frequently asked questions:");
             return Ok(faqs);
         }
 
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<FaqDto> GetFaq(int id)
+        public async Task<ActionResult<FaqDto>> GetFaq(int id)
         {
-            var faq = _faqRepository.GetFaq(id);
+            var faq = await _faqRepository.GetFaqAsync(id);
             if (faq is null)
             {
                 return NotFound();
@@ -42,12 +45,12 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             return Ok(faq);
         }
 
-        [HttpDelete("api/faq/delete/{id:int}")]
+        [HttpDelete("delete/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult DeleteFaq(int id)
+        public async Task<ActionResult> DeleteFaq(int id)
         {
-            var faqToDelete = _faqRepository.DeleteFaq(id);
+            var faqToDelete = await _faqRepository.DeleteFaqAsync(id);
             if (faqToDelete == false)
             {
                 return NotFound("There is no such item");
@@ -58,7 +61,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult CreateFaq([FromBody] FaqForCreationDto faqForCreationDto)
+        public async Task<IActionResult> CreateFaq([FromBody] FaqForCreationDto faqForCreationDto)
         {
             if (!ModelState.IsValid)
             {
@@ -67,24 +70,11 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
 
             var faq = _mapper.Map<Faq>(faqForCreationDto);
 
-            _faqRepository.CreateFaq(faq);
+            await _faqRepository.CreateFaqAsync(faq);
 
             var faqDto = _mapper.Map<FaqDto>(faq);
 
             return CreatedAtAction(nameof(GetFaq), new { id = faq.Id }, faqDto);
         }
-
-        //[HttpPut("api/faq/new")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //public ActionResult AddFaq([FromBody] FaqDto faq)
-        //{
-        //    var faqDb = new Faq
-        //    {
-        //        Question = faq.Question,
-        //        Answer = faq.Answer
-        //    };
-        //    _faqRepository.CreateFaq(faqDb);
-        //    return Ok(faqDb);
-        //}
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AnkaraLab_BackEnd.WebAPI.Domain;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
 using AnkaraLab_BackEnd.WebAPI.Migrations;
+using Microsoft.EntityFrameworkCore;
 
 namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
 {
@@ -11,43 +12,43 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
-        public void CreateBasket(Basket basket)
+        public async Task CreateBasketAsync(Basket basket)
         {
             _dbContext.Baskets.Add(basket);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
 
-        public bool DeleteBasket(int id)
+        public async Task<bool> DeleteBasketAsync(int id)
         {
-            var basket = _dbContext.Baskets.SingleOrDefault(b => b.Id == id);
+            var basket = await _dbContext.Baskets.SingleOrDefaultAsync(b => b.Id == id);
 
             if (basket is null)
             {
                 return false;
             }
             _dbContext.Baskets.Remove(basket);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
 
             return true;
         }
 
-        public Basket? GetBasket(int id)
+        public async Task<Basket?> GetBasketAsync(int id)
         {
-            return _dbContext.Baskets.SingleOrDefault(b => b.Id == id);
+            return await _dbContext.Baskets.SingleOrDefaultAsync(b => b.Id == id);
         }
 
-        public IEnumerable<Basket> GetBaskets(int clientId)
+        public async Task<IEnumerable<Basket>> GetBasketsAsync(int clientId)
         {
             var query = _dbContext.Baskets
                             .Where(b => b.ClientId == clientId)
                             .AsQueryable();
 
-            return query.ToList();
+            return await query.ToListAsync();
         }
 
-        public bool UpdateBasket(Basket basket)
+        public async Task<bool> UpdateBasketAsync(Basket basket)
         {
-            var basketFromDb = _dbContext.Baskets.SingleOrDefault(b => b.Id == basket.Id);
+            var basketFromDb = await _dbContext.Baskets.SingleOrDefaultAsync(b => b.Id == basket.Id);
 
             if (basketFromDb is null)
             {
@@ -59,7 +60,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             basketFromDb.OrderId = basket.OrderId;
 
 
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
             return true;
         }
     }

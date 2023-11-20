@@ -4,8 +4,10 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces
 {
     public interface ICategoryRepository
     {
-        void CreateCategory(Category category);
-        bool UpdateCategory(Category category);
-
+        Task<IEnumerable<Category>> GetCategoriesAsync();
+        Task<Category?> GetCategoryAsync(int id);
+        Task CreateCategoryAsync(Category category);
+        Task <bool> UpdateCategoryAsync(Category category);
+        Task <bool> DeleteCategoryAsync(int id);
     }
 }

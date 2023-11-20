@@ -1,5 +1,6 @@
 ﻿using AnkaraLab_BackEnd.WebAPI.Domain;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
 {
@@ -10,31 +11,31 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
-        public void CreateOrder(Order order)
+        public async Task CreateOrder(Order order)
         {
             _dbContext.Orders.Add(order);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
-        public Order? GetOrder(int id)
+        public async Task<Order?> GetOrder(int id)
         {
-            return _dbContext.Orders.SingleOrDefault(o => o.Id == id);
+            return await _dbContext.Orders.SingleOrDefaultAsync(o => o.Id == id);
         }
-        public bool DeleteOrder(int id)
+        public async Task<bool> DeleteOrder(int id)
         {
-            var order = _dbContext.Orders.SingleOrDefault(o => o.Id == id);
+            var order = await _dbContext.Orders.SingleOrDefaultAsync(o => o.Id == id);
 
             if (order is null)
             {
                 return false;
             }
             _dbContext.Orders.Remove(order);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
 
             return true;
         }
-        public bool UpdateOrder(Order order)
+        public async Task<bool> UpdateOrder(Order order)
         {
-            var orderFromDb = _dbContext.Orders.SingleOrDefault(o => o.Id == order.Id);
+            var orderFromDb = await _dbContext.Orders.SingleOrDefaultAsync(o => o.Id == order.Id);
 
             if (orderFromDb is null)
             {
@@ -45,14 +46,14 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             orderFromDb.PaymentMethod = order.PaymentMethod;
             orderFromDb.PaymentStatus = order.PaymentStatus;
 
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
             return true;
         }
-        public IEnumerable<Order> GetOrders()
+        public async Task<IEnumerable<Order>> GetOrders()
         {
             var query = _dbContext.Orders.AsQueryable();
 
-            return query.ToList();
+            return await query.ToListAsync();
         }
         IEnumerable<Order> IOrdersRepository.GetPaymentMethod()
         {
@@ -61,6 +62,31 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
         public IEnumerable<Order> GetPaymentStatus()
         {
             return (IEnumerable<Order>)Enum.GetValues(typeof(PaymentStatusEnum.PaymentStatus)).Cast<PaymentStatusEnum.PaymentStatus>();
+        }
+
+        public Task<IEnumerable<Order>> GetOrdersAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Order?> GetOrderAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IOrdersRepository.CreateOrder(Order order)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool IOrdersRepository.UpdateOrder(Order order)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> DeleteOrderAsync(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

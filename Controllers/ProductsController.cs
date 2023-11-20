@@ -16,10 +16,12 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
     {
         private readonly IProductsRepository _productsRepository;
         private readonly IMapper _mapper;
-        public ProductsController(IProductsRepository productsRepository, IMapper mapper)
+        private readonly ILogger<ProductsController> _logger;
+        public ProductsController(IProductsRepository productsRepository, IMapper mapper, ILogger<ProductsController> logger)
         {
             _productsRepository = productsRepository ?? throw new ArgumentNullException(nameof(productsRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger)); ;
         }
 
         [HttpGet("{id:int}")]
@@ -42,7 +44,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         {
             var products = await _productsRepository.GetProductsByCategoryAsync(categoryId);
             var productsDto = _mapper.Map<IEnumerable<ProductDto>>(products);
-
+            _logger.LogInformation("Estabilished connection with database. Retrieved all products for category: {categoryId}.", categoryId);
             return Ok(productsDto);
         }
 

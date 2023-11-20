@@ -4,12 +4,11 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces
 {
     public interface IOrdersRepository
     {
-        IEnumerable<Order> GetOrders();
-
-        Order? GetOrder(int id);
+        Task<IEnumerable<Order>> GetOrdersAsync();
+        Task<Order?> GetOrderAsync(int id);
         void CreateOrder(Order order);
         bool UpdateOrder(Order order);
-        bool DeleteOrder(int id);
+        Task<bool> DeleteOrderAsync(int id);
         IEnumerable<Order> GetPaymentMethod();
         IEnumerable<Order> GetPaymentStatus();
     }
