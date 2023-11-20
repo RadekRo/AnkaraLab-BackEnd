@@ -27,6 +27,8 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        // [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 7200)]
+        [ResponseCache(CacheProfileName = "Any-7200")]
         public async Task<ActionResult<ProductDto>> GetProduct(int id) 
         {
             var product = await _productsRepository.GetProductAsync(id);
