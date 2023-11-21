@@ -14,7 +14,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
-        public async Task CreateProduct(Product product)
+        public async Task CreateProductAsync(Product product)
         {
             _dbContext.Products.Add(product);
             await _dbContext.SaveChangesAsync();

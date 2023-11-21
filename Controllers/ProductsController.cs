@@ -65,22 +65,20 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
 
         [HttpPut("api/products/new")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult AddProduct([FromBody]ProductDto product)
+        public async Task<IActionResult> CreateProduct([FromBody] ProductForCreationDto productForCreationDto)
         {
-            var productDb = new Product
+            if (!ModelState.IsValid)
             {
-                Deadline = product.Deadline,
-                Size = product.Size,
-                Description = product.Description,
-                IsAvaliable = product.IsAvaliable,
-                PhotoHeight = product.PhotoHeight,
-                PhotoWidth = product.PhotoWidth,
-                Price = product.Price,
-                CategoryId = product.CategoryId
-                
-            };
-            _productsRepository.CreateProduct(productDb);
-            return Ok(productDb);
+                return BadRequest(ModelState);
+            }
+
+            var product = _mapper.Map<Product>(productForCreationDto);
+
+            await _productsRepository.CreateProductAsync(product);
+
+            var productDto = _mapper.Map<ProductDto>(product);
+
+            return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, productDto);
         }
     }
 }

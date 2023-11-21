@@ -9,6 +9,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Configurations.Mapper
         public ProductsProfile() 
         {
             CreateMap<Product, ProductDto>();
+            CreateMap<ProductForCreationDto, Product>();
         }
     }
 }
