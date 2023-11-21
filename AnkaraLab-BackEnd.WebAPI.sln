@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnkaraLab-BackEnd.WebAPI", "AnkaraLab-BackEnd.WebAPI.csproj", "{88F2A368-1814-4C92-897C-BBDDE29AB6DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnkaraLab-BackEnd.WebAPI", "AnkaraLab-BackEnd.WebAPI.csproj", "{88F2A368-1814-4C92-897C-BBDDE29AB6DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnkaraLab-Backend.Tests", "..\AnkaraLab-Backend.Tests\AnkaraLab-Backend.Tests.csproj", "{4A83EFE3-730A-4963-8ACC-086815131B6E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{88F2A368-1814-4C92-897C-BBDDE29AB6DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88F2A368-1814-4C92-897C-BBDDE29AB6DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88F2A368-1814-4C92-897C-BBDDE29AB6DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A83EFE3-730A-4963-8ACC-086815131B6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A83EFE3-730A-4963-8ACC-086815131B6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A83EFE3-730A-4963-8ACC-086815131B6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A83EFE3-730A-4963-8ACC-086815131B6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
