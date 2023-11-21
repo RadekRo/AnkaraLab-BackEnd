@@ -1,6 +1,7 @@
 using AnkaraLab_BackEnd.WebAPI.Infrastructure;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -38,7 +39,16 @@ public class Program
             // WithOrigins("http://localhost:5173")
         });
 
-        builder.Services.AddControllers().AddNewtonsoftJson(options =>
+        builder.Services.AddControllers(configure =>
+        {
+            configure.CacheProfiles.Add("Any-7200",
+                new CacheProfile
+                {
+                    Location = ResponseCacheLocation.Any,
+                    Duration = 7200
+                });
+        })
+            .AddNewtonsoftJson(options =>
         {
             // required to prevent "Self referencing loop detected" error
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
