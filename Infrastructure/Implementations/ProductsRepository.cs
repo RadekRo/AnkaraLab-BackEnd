@@ -45,6 +45,11 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             return await _dbContext.Products.SingleOrDefaultAsync(p => p.Id == id);
         }
 
+        public async Task<Product?> GetRandomProductAsync()
+        {
+            return await _dbContext.Products.OrderBy(p => Guid.NewGuid()).FirstOrDefaultAsync();
+        }
+
         public IEnumerable<Product> GetProductsByCategory(int categoryId)
         {
             var query = _dbContext.Products.AsQueryable();
