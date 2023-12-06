@@ -80,5 +80,18 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
 
             return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, productDto);
         }
+
+        [HttpGet("api/products/random")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<ProductDto>> GetRandomProduct()
+        {
+            var product = await _productsRepository.GetRandomProductAsync();
+            if (product is null)
+            {
+                return NotFound();
+            }
+            return Ok(product);
+        }
     }
 }
