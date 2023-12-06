@@ -47,7 +47,19 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
 
         public async Task<Product?> GetRandomProductAsync()
         {
-            return await _dbContext.Products.OrderBy(p => Guid.NewGuid()).FirstOrDefaultAsync();
+            var count = await _dbContext.Products.CountAsync();
+
+            if (count == 0)
+            {
+                return null;
+            }
+
+            var randomIndex = new Random().Next(0, count);
+            var randomProduct = await _dbContext.Products
+                .Skip(randomIndex)
+                .FirstOrDefaultAsync();
+
+            return randomProduct;
         }
 
         public IEnumerable<Product> GetProductsByCategory(int categoryId)
