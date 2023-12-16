@@ -7,7 +7,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Domain
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        private int Id { get; }
+        public int Id { get; }
         [Required]
         public string Name { get; set; } = string.Empty;
         [Required]
@@ -18,8 +18,8 @@ namespace AnkaraLab_BackEnd.WebAPI.Domain
         //private int DeliveryAdress { get; set; }
         //[ForeignKey(nameof(DeliveryAdress))]
         //private int DeliveryAdress { get; set; }
-        private string Login { get; set; } = string.Empty;
-        private string Password { get; set; } = string.Empty;
+        public string Login { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
         public string Phone { get; set; } = string.Empty;
         public bool Newsletter { get; set; }
         public bool IsActive { get; set; }
