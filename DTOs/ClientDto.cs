@@ -5,7 +5,7 @@ namespace AnkaraLab_BackEnd.WebAPI.DTOs
 {
     public class ClientDto
     {
-        private int Id { get; }
+        private int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Surname { get; set; } = string.Empty;
         public double Discount { get; set; }
