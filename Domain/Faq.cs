@@ -8,7 +8,6 @@ namespace AnkaraLab_BackEnd.WebAPI.Domain
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
         [Required]
         public string? Question { get; set; }
         [Required]
