@@ -1,4 +1,5 @@
 ﻿using AnkaraLab_BackEnd.WebAPI.Domain;
+using AnkaraLab_BackEnd.WebAPI.DTOs;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
 using AnkaraLab_BackEnd.WebAPI.Migrations;
 using Microsoft.EntityFrameworkCore;
@@ -52,13 +53,26 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             {
                 return false;
             }
-            clientFromDb.Login = client.Login;
+            clientFromDb.Email = client.Email;
             clientFromDb.Password = client.Password;
             clientFromDb.Name = client.Name;
             clientFromDb.Surname = client.Surname;
             clientFromDb.Newsletter = client.Newsletter;
             await _dbContext.SaveChangesAsync();
             return true;
+        }
+
+        public async Task RegisterClientAsync(Client client)
+        {
+            var newClient = new Client()
+            {
+                Email = client.Email,
+                Name = client.Name,
+                Surname = client.Surname
+            };
+
+            _dbContext.Clients.Add(newClient);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

@@ -78,5 +78,13 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
 
             return CreatedAtAction(nameof(GetClient), new { id = client.Id }, clientDto);
         }
+
+        [HttpPost("register")]
+        public ActionResult RegisterClient([FromBody] ClientForRegistrationDto clientForRegistrationDto)
+        {
+            var client = _mapper.Map<Client>(clientForRegistrationDto);
+            _clientRepository.RegisterClientAsync(client);
+            return Ok();
+        }
     }
 }

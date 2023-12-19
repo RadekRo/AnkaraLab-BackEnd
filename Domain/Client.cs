@@ -18,7 +18,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Domain
         //private int DeliveryAdress { get; set; }
         //[ForeignKey(nameof(DeliveryAdress))]
         //private int DeliveryAdress { get; set; }
-        public string Login { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string Phone { get; set; } = string.Empty;
         public bool Newsletter { get; set; }

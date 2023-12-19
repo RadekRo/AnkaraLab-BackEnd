@@ -4,6 +4,8 @@ using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace AnkaraLab_BackEnd.WebAPI;
 
@@ -26,6 +28,7 @@ public class Program
         builder.Services.AddScoped<IBasketRepository, BasketRepository>();
         builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
         builder.Services.AddScoped<IClientRepository, ClientRepository>();
+        //builder.Services.AddScoped<IPasswordHasher<Client>, IPasswordHasher<Client>>();
         builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
         builder.Services.AddCors(options =>
