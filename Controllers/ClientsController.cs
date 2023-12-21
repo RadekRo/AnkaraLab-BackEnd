@@ -4,6 +4,7 @@ using AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+
 using Microsoft.Extensions.Logging;
 using System.Net;
 
@@ -60,31 +61,40 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             return Ok(clientToDelete);
         }
 
-        [HttpPost("newClient")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> CreateClient([FromBody] ClientForCreationDto clientForCreationDto)
+        //[HttpPost("newClient")]
+        //[ProducesResponseType(StatusCodes.Status201Created)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //public async Task<IActionResult> CreateClient([FromBody] ClientForCreationDto clientForCreationDto)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    var client = _mapper.Map<Client>(clientForCreationDto);
+
+        //    await _clientRepository.CreateClientAsync(client);
+
+        //    var clientDto = _mapper.Map<ClientDto>(client);
+
+        //    return CreatedAtAction(nameof(GetClient), new { id = client.Id }, clientDto);
+        //}
+
+        [HttpPost("register")]
+        public async Task<ActionResult> RegisterClient([FromBody] ClientForRegistrationDto clientForRegistrationDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var client = _mapper.Map<Client>(clientForCreationDto);
+            var client = _mapper.Map<Client>(clientForRegistrationDto);
 
-            await _clientRepository.CreateClientAsync(client);
+            await _clientRepository.RegisterClientAsync(client);
 
             var clientDto = _mapper.Map<ClientDto>(client);
 
             return CreatedAtAction(nameof(GetClient), new { id = client.Id }, clientDto);
-        }
-
-        [HttpPost("register")]
-        public ActionResult RegisterClient([FromBody] ClientForRegistrationDto clientForRegistrationDto)
-        {
-            var client = _mapper.Map<Client>(clientForRegistrationDto);
-            _clientRepository.RegisterClientAsync(client);
-            return Ok();
         }
     }
 }

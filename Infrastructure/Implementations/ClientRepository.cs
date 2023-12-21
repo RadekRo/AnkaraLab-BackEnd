@@ -2,6 +2,7 @@
 using AnkaraLab_BackEnd.WebAPI.DTOs;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
 using AnkaraLab_BackEnd.WebAPI.Migrations;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
@@ -9,9 +10,11 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
     public class ClientRepository : IClientRepository
     {
         private readonly AnkaraLabDbContext _dbContext;
-        public ClientRepository(AnkaraLabDbContext dbContext)
+        private readonly IPasswordHasher<Client> _passwordHasher;
+        public ClientRepository(AnkaraLabDbContext dbContext, IPasswordHasher<Client> passwordHasher)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            _passwordHasher = passwordHasher;
         }
         public async Task CreateClientAsync(Client client)
         {
@@ -70,7 +73,8 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
                 Name = client.Name,
                 Surname = client.Surname
             };
-
+            var hashedPassword = _passwordHasher.HashPassword(newClient, client.Password);
+            newClient.Password = hashedPassword;
             _dbContext.Clients.Add(newClient);
             await _dbContext.SaveChangesAsync();
         }

@@ -5,12 +5,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using Microsoft.AspNetCore.Identity;
+using AnkaraLab_BackEnd.WebAPI.Domain;
+using Microsoft.Identity.Client;
 
 
 namespace AnkaraLab_BackEnd.WebAPI;
 
 public class Program
 {
+    //public void ConfigureServices(IServiceCollection services)
+    //{
+    //    services.AddScoped<IPasswordHasher<Client>, IPasswordHasher<Client>>();
+    //}
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
@@ -28,8 +34,10 @@ public class Program
         builder.Services.AddScoped<IBasketRepository, BasketRepository>();
         builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
         builder.Services.AddScoped<IClientRepository, ClientRepository>();
-        //builder.Services.AddScoped<IPasswordHasher<Client>, IPasswordHasher<Client>>();
+        // builder.Services.AddIdentity<AnkaraLab_BackEnd.WebAPI.Domain.Client, AnkaraLab_BackEnd.WebAPI.Controllers.ClientsController>().AddDefaultPasswordHasher();
+        builder.Services.AddScoped<IPasswordHasher<Client>, PasswordHasher<Client>>();
         builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        
 
         builder.Services.AddCors(options =>
         {
@@ -42,7 +50,7 @@ public class Program
             });
             // WithOrigins("http://localhost:5173")
         });
-
+  
         builder.Services.AddControllers(configure =>
         {
             configure.CacheProfiles.Add("Any-7200",
@@ -61,9 +69,10 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
+        // Configure the HTTP request pipeline. 
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
