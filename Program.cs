@@ -5,8 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using Microsoft.AspNetCore.Identity;
+using FluentValidation;
 using AnkaraLab_BackEnd.WebAPI.Domain;
 using Microsoft.Identity.Client;
+using AnkaraLab_BackEnd.WebAPI.DTOs;
+using AnkaraLab_BackEnd.WebAPI.DTOs.Validators;
+using FluentValidation.AspNetCore;
 
 
 namespace AnkaraLab_BackEnd.WebAPI;
@@ -28,14 +32,15 @@ public class Program
             options.EnableSensitiveDataLogging(builder.Environment.IsDevelopment());
         });
 
+        builder.Services.AddControllers().AddFluentValidation();
         builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
         builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
         builder.Services.AddScoped<IFaqRepository, FaqRepository>();
         builder.Services.AddScoped<IBasketRepository, BasketRepository>();
         builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
         builder.Services.AddScoped<IClientRepository, ClientRepository>();
-        // builder.Services.AddIdentity<AnkaraLab_BackEnd.WebAPI.Domain.Client, AnkaraLab_BackEnd.WebAPI.Controllers.ClientsController>().AddDefaultPasswordHasher();
         builder.Services.AddScoped<IPasswordHasher<Client>, PasswordHasher<Client>>();
+        builder.Services.AddScoped<IValidator<ClientForRegistrationDto>, RegisterClientDtoValidator>();
         builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
         
 

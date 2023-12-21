@@ -16,11 +16,6 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             _passwordHasher = passwordHasher;
         }
-        public async Task CreateClientAsync(Client client)
-        {
-            _dbContext.Clients.Add(client);
-            await _dbContext.SaveChangesAsync();
-        }
 
         public async Task<bool> DeleteClientAsync(int id)
         {
