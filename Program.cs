@@ -5,24 +5,28 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using FluentValidation;
 using AnkaraLab_BackEnd.WebAPI.Domain;
 using Microsoft.Identity.Client;
+using FluentValidation.AspNetCore;
 using AnkaraLab_BackEnd.WebAPI.DTOs;
 using AnkaraLab_BackEnd.WebAPI.DTOs.Validators;
-using FluentValidation.AspNetCore;
+using Microsoft.Extensions.Configuration;
+using System.Configuration;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 
 namespace AnkaraLab_BackEnd.WebAPI;
 
 public class Program
 {
-    //public void ConfigureServices(IServiceCollection services)
-    //{
-    //    services.AddScoped<IPasswordHasher<Client>, IPasswordHasher<Client>>();
-    //}
+    public static IConfiguration Configuration { get; }
     public static void Main(string[] args)
     {
+
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
@@ -30,6 +34,26 @@ public class Program
         {
             options.UseSqlServer(builder.Configuration.GetConnectionString("AnkaraDb"));
             options.EnableSensitiveDataLogging(builder.Environment.IsDevelopment());
+        });
+
+        var authenticationSettings = new AuthenticationSettings();
+        Configuration.GetSection("Authentication").Bind(authenticationSettings);
+
+        builder.Services.AddAuthentication(option =>
+        {
+            option.DefaultAuthenticateScheme = "Bearer";
+            option.DefaultScheme = "Bearer";
+            option.DefaultChallengeScheme = "Bearer";
+        }).AddJwtBearer(cfg =>
+        {
+            cfg.RequireHttpsMetadata = false;
+            cfg.SaveToken = true;
+            cfg.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+            {
+                ValidIssuer = authenticationSettings.JwtIssuer,
+                ValidAudience = authenticationSettings.JwtIssuer,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.JwtKey)),
+            };
         });
 
         builder.Services.AddControllers().AddFluentValidation();
@@ -83,6 +107,8 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
+        app.UseAuthentication();
 
         app.UseHttpsRedirection();
 
