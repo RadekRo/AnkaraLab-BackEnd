@@ -4,6 +4,10 @@ using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
 using AnkaraLab_BackEnd.WebAPI.Migrations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
 {
@@ -11,10 +15,12 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
     {
         private readonly AnkaraLabDbContext _dbContext;
         private readonly IPasswordHasher<Client> _passwordHasher;
-        public ClientRepository(AnkaraLabDbContext dbContext, IPasswordHasher<Client> passwordHasher)
+        private readonly AuthenticationSettings _authenticationSettings;
+        public ClientRepository(AnkaraLabDbContext dbContext, IPasswordHasher<Client> passwordHasher, AuthenticationSettings authenticationSettings)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             _passwordHasher = passwordHasher;
+            _authenticationSettings = authenticationSettings;
         }
 
         public async Task<bool> DeleteClientAsync(int id)
@@ -72,6 +78,41 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             newClient.Password = hashedPassword;
             _dbContext.Clients.Add(newClient);
             await _dbContext.SaveChangesAsync();
+        }
+
+        public string GenerateJwt(LoginDto dto)
+        {
+            var client = _dbContext.Clients.FirstOrDefault(c => c.Email == dto.Email);
+
+            if(client is null)
+            {
+                throw new BadHttpRequestException("Invalid username or password");
+            }
+
+            var result = _passwordHasher.VerifyHashedPassword(client, client.Password, dto.Password);
+            if(result == PasswordVerificationResult.Failed)
+            {
+                throw new BadHttpRequestException("Invalid password");
+            }
+
+            var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.NameIdentifier, client.Id.ToString()),
+                new Claim(ClaimTypes.Name, $"{client.Name} {client.Surname}"),
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.JwtKey));
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var expires = DateTime.Now.AddDays(_authenticationSettings.JwtExpireDays);
+
+            var token = new JwtSecurityToken(_authenticationSettings.JwtIssuer,
+                _authenticationSettings.JwtIssuer,
+                claims,
+                expires: expires,
+                signingCredentials: credentials);
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            return tokenHandler.WriteToken(token);
         }
     }
 }

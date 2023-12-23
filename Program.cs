@@ -28,7 +28,7 @@ public class Program
     {
 
         var builder = WebApplication.CreateBuilder(args);
-
+        
         // Add services to the container.
         builder.Services.AddDbContext<AnkaraLabDbContext>(options =>
         {
@@ -37,8 +37,9 @@ public class Program
         });
 
         var authenticationSettings = new AuthenticationSettings();
+        var Configuration = builder.Configuration;
         Configuration.GetSection("Authentication").Bind(authenticationSettings);
-
+        builder.Services.AddSingleton(authenticationSettings);
         builder.Services.AddAuthentication(option =>
         {
             option.DefaultAuthenticateScheme = "Bearer";

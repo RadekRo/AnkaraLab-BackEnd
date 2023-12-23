@@ -5,6 +5,7 @@ using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Identity.Client;
 using System.Net;
 
 namespace AnkaraLab_BackEnd.WebAPI.Controllers
@@ -18,12 +19,16 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         private readonly IClientRepository _clientRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<ClientsController> _logger;
+        // private readonly IAccountService _accountService;
         public ClientsController(IClientRepository clientRepository, IMapper mapper, ILogger<ClientsController> logger)
         {
             _clientRepository = clientRepository ?? throw new ArgumentNullException(nameof(clientRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            // _accountService = accountService;
         }
+
+     
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -75,6 +80,12 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             var clientDto = _mapper.Map<ClientDto>(client);
 
             return CreatedAtAction(nameof(GetClient), new { id = client.Id }, clientDto);
+        }
+        [HttpPost("login")]
+        public ActionResult LoginClient([FromBody] LoginDto dto)
+        {
+            string token = _clientRepository.GenerateJwt(dto);
+            return Ok(token);
         }
     }
 }
