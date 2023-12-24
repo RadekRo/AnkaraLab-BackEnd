@@ -1,7 +1,7 @@
 ﻿using AnkaraLab_BackEnd.WebAPI.Domain;
 using AnkaraLab_BackEnd.WebAPI.DTOs;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
-using AnkaraLab_BackEnd.WebAPI.Migrations;
+using AnkaraLab_BackEnd.WebAPI.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -86,13 +86,13 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
 
             if(client is null)
             {
-                throw new BadHttpRequestException("Invalid username or password");
+                throw new BadRequestException("Invalid username or password");
             }
 
             var result = _passwordHasher.VerifyHashedPassword(client, client.Password, dto.Password);
             if(result == PasswordVerificationResult.Failed)
             {
-                throw new BadHttpRequestException("Invalid password");
+                throw new BadRequestException("Invalid username or password");
             }
 
             var claims = new List<Claim>()
