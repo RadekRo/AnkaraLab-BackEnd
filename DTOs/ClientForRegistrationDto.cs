@@ -2,7 +2,7 @@
 
 namespace AnkaraLab_BackEnd.WebAPI.DTOs
 {
-    public class ClientForCreationDto
+    public class ClientForRegistrationDto
     {
         [Required]
         public string Name { get; set; } = string.Empty;
@@ -14,12 +14,12 @@ namespace AnkaraLab_BackEnd.WebAPI.DTOs
         //private int DeliveryAdress { get; set; }
         //[ForeignKey(nameof(DeliveryAdress))]
         //private int DeliveryAdress { get; set; }
-
-        public string Login { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
+        public string ConfirmPassword { get; set; } = string.Empty;    
         public string Phone { get; set; } = string.Empty;
-        public bool Newsletter { get; set; }
-        public bool IsActive { get; set; }
+        public bool Newsletter { get; set; } = false;
+        public bool IsActive { get; set; } = true;
         public bool IsAdmin { get; set; } = false;
         public int Status { get; set; } = 1;
         public string FtpLogin { get; set; } = string.Empty;

@@ -4,6 +4,7 @@ using AnkaraLab_BackEnd.WebAPI.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnkaraLab_BackEnd.WebAPI.Migrations
 {
     [DbContext(typeof(AnkaraLabDbContext))]
-    partial class AnkaraLabDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231221130224_clientUpdate4")]
+    partial class clientUpdate4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,7 +157,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Migrations
                     b.Property<bool>("Newsletter")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

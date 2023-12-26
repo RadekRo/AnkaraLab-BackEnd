@@ -5,6 +5,7 @@ using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Identity.Client;
 using System.Net;
 
 namespace AnkaraLab_BackEnd.WebAPI.Controllers
@@ -24,6 +25,8 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
+
+     
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -60,23 +63,27 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             return Ok(clientToDelete);
         }
 
-        [HttpPost("newClient")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> CreateClient([FromBody] ClientForCreationDto clientForCreationDto)
+        [HttpPost("register")]
+        public async Task<ActionResult> RegisterClient([FromBody] ClientForRegistrationDto clientForRegistrationDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var client = _mapper.Map<Client>(clientForCreationDto);
+            var client = _mapper.Map<Client>(clientForRegistrationDto);
 
-            await _clientRepository.CreateClientAsync(client);
+            await _clientRepository.RegisterClientAsync(client);
 
             var clientDto = _mapper.Map<ClientDto>(client);
 
             return CreatedAtAction(nameof(GetClient), new { id = client.Id }, clientDto);
+        }
+        [HttpPost("login")]
+        public ActionResult LoginClient([FromBody] LoginDto dto)
+        {
+            string token = _clientRepository.GenerateJwt(dto);
+            return Ok(token);
         }
     }
 }
