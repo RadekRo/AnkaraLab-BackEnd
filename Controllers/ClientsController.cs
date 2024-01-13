@@ -78,11 +78,10 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public ActionResult LoginClient([FromBody] LoginDto loginDto)
+        public async Task<ActionResult> LoginClient([FromBody] LoginDto loginDto)
         {
-            var clientFromDb = _clientRepository.GetClientByEmail(loginDto.Email);
-            
-            //var client = _mapper.Map<Client>(clientFromDb);
+            var clientFromDb = await _clientRepository.GetClientByEmailAsync(loginDto.Email);
+
             if (clientFromDb != null)
             {
                 if (_clientRepository.CheckPassword(loginDto, clientFromDb))
@@ -90,11 +89,11 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
                     string token = _clientRepository.GenerateJwt(clientFromDb);
                     return Ok(token);
                 }
-                return NotFound("Błędne hasło");
+                return Unauthorized(new { message = "Błędne hasło" });
             }
             else
             {
-                return NotFound("Keine User Gefunden XD");
+                return NotFound(new { message = "Nie ma takiego użytkownika" });
             }
         }
 

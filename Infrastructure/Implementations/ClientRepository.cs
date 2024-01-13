@@ -38,9 +38,9 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             return true;
         }
 
-        public Client? GetClientByEmail(string email)
+        public async Task<Client?> GetClientByEmailAsync(string email)
         {
-                return _dbContext.Clients.SingleOrDefault(c => c.Email == email);
+                return await _dbContext.Clients.SingleOrDefaultAsync(c => c.Email == email);
         }
         public bool CheckPassword(LoginDto loginDto, Client client)
         {
