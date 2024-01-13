@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
 {
@@ -37,6 +38,19 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             return true;
         }
 
+        public Client? GetClientByEmail(string email)
+        {
+                return _dbContext.Clients.SingleOrDefault(c => c.Email == email);
+        }
+        public bool CheckPassword(LoginDto loginDto, Client client)
+        {
+          var result =  _passwordHasher.VerifyHashedPassword(client, client.Password, loginDto.Password);
+            if (result == PasswordVerificationResult.Success)
+            {
+                return true;
+            }
+            return false;
+        }
         public async Task<Client?> GetClientAsync(int id)
         {
             return await _dbContext.Clients.SingleOrDefaultAsync(c => c.Id == id);
@@ -80,21 +94,9 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             await _dbContext.SaveChangesAsync();
         }
 
-        public string GenerateJwt(LoginDto dto)
+        public string GenerateJwt(Client client)
         {
-            var client = _dbContext.Clients.FirstOrDefault(c => c.Email == dto.Email);
-
-            if(client is null)
-            {
-                throw new BadRequestException("Invalid username or password");
-            }
-
-            var result = _passwordHasher.VerifyHashedPassword(client, client.Password, dto.Password);
-            if(result == PasswordVerificationResult.Failed)
-            {
-                throw new BadRequestException("Invalid username or password");
-            }
-
+           
             var claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.NameIdentifier, client.Id.ToString()),
