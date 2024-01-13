@@ -9,9 +9,9 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces
         Task<IEnumerable<Client>> GetClientsAsync();
         Task<Client?> GetClientAsync(int id);
         Task RegisterClientAsync(Client client);
-        public string GenerateJwt(Client client);
         Task<bool> UpdateClientAsync(Client client);
         Task<bool> DeleteClientAsync(int id);
+        public string GenerateJwt(Client client);
         bool CheckPassword(LoginDto loginDto, Client client);
     }
 }

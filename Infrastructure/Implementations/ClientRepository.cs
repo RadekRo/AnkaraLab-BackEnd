@@ -86,7 +86,9 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             {
                 Email = client.Email,
                 Name = client.Name,
-                Surname = client.Surname
+                Surname = client.Surname,
+                LastLoginDate = DateTime.Now,
+                Deadline = DateTime.Now.AddDays(365)
             };
             var hashedPassword = _passwordHasher.HashPassword(newClient, client.Password);
             newClient.Password = hashedPassword;
@@ -96,7 +98,6 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
 
         public string GenerateJwt(Client client)
         {
-           
             var claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.NameIdentifier, client.Id.ToString()),

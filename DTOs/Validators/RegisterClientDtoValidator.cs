@@ -12,7 +12,7 @@ namespace AnkaraLab_BackEnd.WebAPI.DTOs.Validators
                 .EmailAddress();
 
             RuleFor(x => x.Password)
-                .MinimumLength(8);
+                .MinimumLength(6);
 
             RuleFor(x => x.ConfirmPassword).Equal(e => e.Password);
 
@@ -22,7 +22,7 @@ namespace AnkaraLab_BackEnd.WebAPI.DTOs.Validators
                     var emailInUse = dbContext.Clients.Any(c => c.Email == value);
                     if (emailInUse)
                     {
-                        context.AddFailure("Email", "That email is already taken");
+                        context.AddFailure("Email", "That email is allready taken");
                     }
                 });
         }
