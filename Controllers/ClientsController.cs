@@ -1,12 +1,8 @@
 ﻿using AnkaraLab_BackEnd.WebAPI.Domain;
 using AnkaraLab_BackEnd.WebAPI.DTOs;
-using AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Microsoft.Identity.Client;
-using System.Net;
 
 namespace AnkaraLab_BackEnd.WebAPI.Controllers
 {
@@ -26,7 +22,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-     
+
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -80,10 +76,28 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             return CreatedAtAction(nameof(GetClient), new { id = client.Id }, clientDto);
         }
         [HttpPost("login")]
-        public ActionResult LoginClient([FromBody] LoginDto dto)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public ActionResult LoginClient([FromBody] LoginDto loginDto)
         {
-            string token = _clientRepository.GenerateJwt(dto);
-            return Ok(token);
+            var clientFromDb = _clientRepository.GetClientByEmail(loginDto.Email);
+            
+            //var client = _mapper.Map<Client>(clientFromDb);
+            if (clientFromDb != null)
+            {
+                if (_clientRepository.CheckPassword(loginDto, clientFromDb))
+                {
+                    string token = _clientRepository.GenerateJwt(clientFromDb);
+                    return Ok(token);
+                }
+                return NotFound("Błędne hasło");
+            }
+            else
+            {
+                return NotFound("Keine User Gefunden XD");
+            }
         }
+
     }
 }
+
