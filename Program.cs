@@ -24,6 +24,8 @@ namespace AnkaraLab_BackEnd.WebAPI;
 public class Program
 {
     public static IConfiguration Configuration { get; }
+
+    [Obsolete]
     public static void Main(string[] args)
     {
 
