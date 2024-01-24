@@ -51,7 +51,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ClientForShippingDto>> GetClientShippingDetails(int id)
         {
-            var clientForShipping = _clientRepository.GetClientAsync(id);
+            var clientForShipping = await _clientRepository.GetClientAsync(id);
             _mapper.Map<ClientForShippingDto>(clientForShipping);
             if (clientForShipping is null)
             {
