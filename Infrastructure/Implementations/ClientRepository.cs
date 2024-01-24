@@ -62,6 +62,10 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
 
             return await query.ToListAsync();
         }
+        public async Task<ClientForShippingDto> GetClientShippingDataAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task<bool> UpdateClientAsync(Client client)
         {
