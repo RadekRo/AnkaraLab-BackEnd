@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnkaraLab-BackEnd.WebAPI", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EABDE15E-A499-4990-95E8-9C9B4F2FD717}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnkaraLab-Backend.Tests", "..\AnkaraLab-Backend.Tests\AnkaraLab-Backend.Tests.csproj", "{E17B2606-772F-4124-9993-601CDCDC5422}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +19,10 @@ Global
 		{88F2A368-1814-4C92-897C-BBDDE29AB6DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88F2A368-1814-4C92-897C-BBDDE29AB6DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88F2A368-1814-4C92-897C-BBDDE29AB6DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E17B2606-772F-4124-9993-601CDCDC5422}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E17B2606-772F-4124-9993-601CDCDC5422}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E17B2606-772F-4124-9993-601CDCDC5422}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E17B2606-772F-4124-9993-601CDCDC5422}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
