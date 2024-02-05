@@ -16,7 +16,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Domain
         public DateTime LastLoginDate { get; set; }
 
         //[ForeignKey(nameof(DeliveryAdress))]
-        //public ShippingAdress? DeliveryAdress { get; set; }
+        public List<ShippingAdress?> DeliveryAdress { get; set; }
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string Phone { get; set; } = string.Empty;

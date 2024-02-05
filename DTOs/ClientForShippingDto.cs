@@ -8,6 +8,6 @@ namespace AnkaraLab_BackEnd.WebAPI.DTOs
         public string Name { get; set; }
         public string Surname { get; set; }
         public double Discount { get; set; }
-        public ShippingAdress DeliveryAdress { get; set; }
+        public List<ShippingAdress?> DeliveryAdress { get; set; }
     }
 }
