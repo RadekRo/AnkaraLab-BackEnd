@@ -76,18 +76,23 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         [HttpPost("register")]
         public async Task<ActionResult> RegisterClient([FromBody] ClientForRegistrationDto clientForRegistrationDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
             var client = _mapper.Map<Client>(clientForRegistrationDto);
 
+            if (client is null)
+            {
+                return BadRequest("Client is null");
+            }
+
             await _clientRepository.RegisterClientAsync(client);
 
-            var clientDto = _mapper.Map<ClientDto>(client);
-
-            return CreatedAtAction(nameof(GetClient), new { id = client.Id }, clientDto);
+            //var clientDto = _mapper.Map<ClientDto>(client);
+            //return CreatedAtAction(nameof(GetClient), new { id = client.Id }, clientDto);
+            return Ok();
         }
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
