@@ -8,6 +8,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces
         Task<Client?> GetClientByEmailAsync(string email);
         Task<IEnumerable<Client>> GetClientsAsync();
         Task<Client?> GetClientAsync(int id);
+        Task<ClientForShippingDto> GetClientShippingDetailsAsync(int id);
         Task RegisterClientAsync(Client client);
         Task<bool> UpdateClientAsync(Client client);
         Task<bool> DeleteClientAsync(int id);

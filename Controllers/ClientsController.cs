@@ -46,6 +46,20 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             return Ok(client);
         }
 
+        [HttpGet("shippingData/{id:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<ClientForShippingDto>> GetClientShippingDetails(int id)
+        {
+            var clientForShipping = await _clientRepository.GetClientAsync(id);
+            _mapper.Map<ClientForShippingDto>(clientForShipping);
+            if (clientForShipping is null)
+            {
+                return NotFound();
+            }
+            return Ok(clientForShipping);
+        }
+
         [HttpDelete("delete/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
