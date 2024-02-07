@@ -28,5 +28,9 @@ namespace AnkaraLab_BackEnd.WebAPI.Domain
         public int Epoint { get; set; } = 0;
         public double Deposit { get; set; } = 0;
         public DateTime Deadline { get; set; }
+        public string Street {  get; set; } = string.Empty;
+        public string LocalNumber { get; set; } = string.Empty;
+        public string City { get; set; } = string.Empty;
+        public string ZipCode { get; set; } = string.Empty;
     }
 }

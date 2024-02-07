@@ -1,9 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace AnkaraLab_BackEnd.WebAPI.DTOs
+﻿namespace AnkaraLab_BackEnd.WebAPI.DTOs
 {
-    public class ClientDto
+    public class ClientForUpdateDto
     {
         private int Id { get; set; }
         public string Name { get; set; } = string.Empty;
@@ -13,7 +10,7 @@ namespace AnkaraLab_BackEnd.WebAPI.DTOs
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string Phone { get; set; } = string.Empty;
-        public bool Newsletter { get; set; } =  false;
+        public bool Newsletter { get; set; } = false;
         public bool IsActive { get; set; } = true;
         public bool IsAdmin { get; set; } = false;
         public int Status { get; set; } = 1;

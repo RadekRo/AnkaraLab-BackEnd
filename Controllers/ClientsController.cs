@@ -97,6 +97,23 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             }
         }
 
+        [HttpPost("update/{id:int}")]
+        public async Task<ActionResult> UpdateClient([FromBody] ClientForUpdateDto clientForUpdateDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var client = _mapper.Map<Client>(clientForUpdateDto);
+
+            await _clientRepository.UpdateClientAsync(client);
+
+            var clientDto = _mapper.Map<ClientDto>(client);
+
+            return CreatedAtAction(nameof(GetClient), new { id = client.Id }, clientDto);
+        }
+
     }
 }
 

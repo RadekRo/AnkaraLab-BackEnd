@@ -63,21 +63,20 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             return await query.ToListAsync();
         }
 
-        public async Task<bool> UpdateClientAsync(Client client)
+        public async Task UpdateClientAsync(Client? client)
         {
             var clientFromDb = await _dbContext.Clients.SingleOrDefaultAsync(c => c.Id == client.Id);
 
-            if (clientFromDb is null)
-            {
-                return false;
-            }
             clientFromDb.Email = client.Email;
             clientFromDb.Password = client.Password;
             clientFromDb.Name = client.Name;
             clientFromDb.Surname = client.Surname;
             clientFromDb.Newsletter = client.Newsletter;
+            clientFromDb.Street = client.Street;
+            clientFromDb.LocalNumber = client.LocalNumber;
+            clientFromDb.City = client.City;
+            clientFromDb.ZipCode = client.ZipCode;
             await _dbContext.SaveChangesAsync();
-            return true;
         }
 
         public async Task RegisterClientAsync(Client client)

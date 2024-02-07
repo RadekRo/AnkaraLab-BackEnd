@@ -10,6 +10,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Configurations.Mapper
         {
             CreateMap<Client, ClientDto>();
             CreateMap<ClientForRegistrationDto, Client>();
+            CreateMap<ClientForUpdateDto, Client>();
         }
     }
 }
