@@ -67,7 +67,7 @@ public class Program
         builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
         builder.Services.AddScoped<IClientRepository, ClientRepository>();
         builder.Services.AddScoped<IPasswordHasher<Client>, PasswordHasher<Client>>();
-        builder.Services.AddScoped<IValidator<ClientForRegistrationDto>, RegisterClientDtoValidator>();
+       // builder.Services.AddScoped<IValidator<ClientForRegistrationDto>, RegisterClientDtoValidator>();
         builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
         
 
