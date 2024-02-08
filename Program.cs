@@ -5,16 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authorization;
-using FluentValidation;
 using AnkaraLab_BackEnd.WebAPI.Domain;
-using Microsoft.Identity.Client;
 using FluentValidation.AspNetCore;
-using AnkaraLab_BackEnd.WebAPI.DTOs;
-using AnkaraLab_BackEnd.WebAPI.DTOs.Validators;
-using Microsoft.Extensions.Configuration;
-using System.Configuration;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -23,9 +15,9 @@ namespace AnkaraLab_BackEnd.WebAPI;
 
 public class Program
 {
-    public static IConfiguration Configuration { get; }
+    public static IConfiguration? Configuration { get; }
 
-    [Obsolete]
+
     public static void Main(string[] args)
     {
 
@@ -59,7 +51,7 @@ public class Program
             };
         });
 
-        builder.Services.AddControllers().AddFluentValidation();
+        //builder.Services.AddControllers().AddFluentValidation();
         builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
         builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
         builder.Services.AddScoped<IFaqRepository, FaqRepository>();
@@ -67,7 +59,7 @@ public class Program
         builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
         builder.Services.AddScoped<IClientRepository, ClientRepository>();
         builder.Services.AddScoped<IPasswordHasher<Client>, PasswordHasher<Client>>();
-        builder.Services.AddScoped<IValidator<ClientForRegistrationDto>, RegisterClientDtoValidator>();
+        //builder.Services.AddScoped<IValidator<ClientForRegistrationDto>, RegisterClientDtoValidator>();
         builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
         
 

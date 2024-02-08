@@ -12,7 +12,7 @@ namespace AnkaraLab_BackEnd.WebAPI.DTOs.Validators
                 .EmailAddress();
 
             RuleFor(x => x.Password)
-                .MinimumLength(6);
+                .MinimumLength(1);
 
             RuleFor(x => x.ConfirmPassword).Equal(e => e.Password);
 

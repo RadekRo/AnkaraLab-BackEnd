@@ -46,6 +46,20 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             return Ok(client);
         }
 
+        [HttpGet("shippingData/{id:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<ClientForShippingDto>> GetClientShippingDetails(int id)
+        {
+            var clientForShipping = await _clientRepository.GetClientAsync(id);
+            _mapper.Map<ClientForShippingDto>(clientForShipping);
+            if (clientForShipping is null)
+            {
+                return NotFound();
+            }
+            return Ok(clientForShipping);
+        }
+
         [HttpDelete("delete/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -62,18 +76,23 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         [HttpPost("register")]
         public async Task<ActionResult> RegisterClient([FromBody] ClientForRegistrationDto clientForRegistrationDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
             var client = _mapper.Map<Client>(clientForRegistrationDto);
 
+            if (client is null)
+            {
+                return BadRequest("Client is null");
+            }
+
             await _clientRepository.RegisterClientAsync(client);
 
-            var clientDto = _mapper.Map<ClientDto>(client);
-
-            return CreatedAtAction(nameof(GetClient), new { id = client.Id }, clientDto);
+            //var clientDto = _mapper.Map<ClientDto>(client);
+            //return CreatedAtAction(nameof(GetClient), new { id = client.Id }, clientDto);
+            return Ok();
         }
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
