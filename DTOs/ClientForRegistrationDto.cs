@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AnkaraLab_BackEnd.WebAPI.Domain;
+using System.ComponentModel.DataAnnotations;
 
 namespace AnkaraLab_BackEnd.WebAPI.DTOs
 {
@@ -12,7 +13,8 @@ namespace AnkaraLab_BackEnd.WebAPI.DTOs
         public DateTime LastLoginDate { get; set; }
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
-        public string ConfirmPassword { get; set; } = string.Empty;    
+        public string ConfirmPassword { get; set; } = string.Empty;
+        public List<ShippingAdress?>? DeliveryAdress { get; set; }
         public string Phone { get; set; } = string.Empty;
         public bool Newsletter { get; set; } = false;
         public bool IsActive { get; set; } = true;
