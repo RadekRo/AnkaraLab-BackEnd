@@ -12,6 +12,12 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
+
+        public async Task<Newsletter?> GetNewsletterAsync(int id)
+        {
+            return await _dbContext.Newsletters.SingleOrDefaultAsync(f => f.Id == id);
+        }
+
         public async Task AddNewsletterAsync(Newsletter newsletter)
         {
             _dbContext.Newsletters.Add(newsletter);
