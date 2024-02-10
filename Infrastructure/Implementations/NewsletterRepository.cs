@@ -13,6 +13,13 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
+        public async Task<IEnumerable<Newsletter>> GetNewslettersAsync()
+        {
+            var query = _dbContext.Newsletters.AsQueryable();
+
+            return await query.ToListAsync();
+        }
+
         public async Task<Newsletter?> GetNewsletterAsync(int id)
         {
             return await _dbContext.Newsletters.SingleOrDefaultAsync(f => f.Id == id);
