@@ -37,7 +37,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
 
             await _newsletterRepository.AddNewsletterAsync(newsletter);
 
-            var newsletterDto = _mapper.Map<FaqDto>(newsletter);
+            var newsletterDto = _mapper.Map<NewsletterDto>(newsletter);
 
             return CreatedAtAction(nameof(GetNewsletter), new { id = newsletter.Id }, newsletterDto);
         }
