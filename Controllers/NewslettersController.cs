@@ -48,7 +48,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
 
             var newsletterDto = _mapper.Map<NewsletterDto>(newsletter);
 
-            return CreatedAtAction(nameof(GetNewsletter), new { id = newsletter.Id }, newsletterDto);
+            return Ok();
         }
 
         [HttpGet("{id:int}")]
