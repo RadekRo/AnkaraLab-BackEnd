@@ -23,6 +23,15 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<NewsletterDto>>> GetNewsletters()
+        {
+            var newsletters = await _newsletterRepository.GetNewslettersAsync();
+            _logger.LogInformation("Estabilished connection with database. Retrieved all frequently asked questions:");
+            return Ok(newsletters);
+        }
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
