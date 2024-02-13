@@ -1,5 +1,6 @@
 ﻿using AnkaraLab_BackEnd.WebAPI.Domain;
 using AnkaraLab_BackEnd.WebAPI.DTOs;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces
 {
@@ -14,5 +15,6 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces
         Task<bool> DeleteClientAsync(int id);
         public string GenerateJwt(Client client);
         bool CheckPassword(LoginDto loginDto, Client client);
+        Task AddShippingAddress(int  id, ShippingAdress address);
     }
 }
