@@ -52,11 +52,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             }
             return false;
         }
-        /// <summary>
-        /// Ta funkcja jest do dupy.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+       
         public async Task<Client?> GetClientAsync(int id)
         {
             return await _dbContext.Clients.SingleOrDefaultAsync(c => c.Id == id);
@@ -126,7 +122,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
 
         public Task<ClientForShippingDto> GetClientShippingDetailsAsync(int id)
         {
-            throw new NotImplementedException();
+     throw new NotImplementedException();
         }
 
         /// <summary>
@@ -136,22 +132,24 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
         /// <param name="address"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        //public Task AddShippingAddress(int id, ShippingAdress address)
-        //{
-        //    var clientFromDb = _dbContext.Clients.SingleOrDefaultAsync(c => c.Id == id);
-        //    Client client = new() { DeliveryAdress = clientFromDb.};
-            
+        public Task AddShippingAddress(int id, ShippingAdress address)
+        {
+            //var clientFromDb = _dbContext.Clients.SingleOrDefaultAsync(c => c.Id == id);
+            //Client client = new() { DeliveryAdress = clientFromDb.};
 
-        //    if (client != null) {
-        //        client.DeliveryAdress?.Append(address);
-        //        _dbContext.SaveChanges();
-        //    }
-            
-        //    else
-        //    {
-        //        throw new InvalidOperationException("Client does not exist");
-        //    }
-        //    return Task.CompletedTask;
-        //}
+
+            //if (client != null)
+            //{
+            //    client.DeliveryAdress?.Append(address);
+            //    _dbContext.SaveChanges();
+            //}
+
+            //else
+            //{
+            //    throw new InvalidOperationException("Client does not exist");
+            //}
+            //return Task.CompletedTask;
+            throw new NotImplementedException();
+        }
     }
 }
