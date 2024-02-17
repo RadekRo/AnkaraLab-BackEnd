@@ -17,6 +17,14 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
         private readonly AnkaraLabDbContext _dbContext;
         private readonly IPasswordHasher<Client> _passwordHasher;
         private readonly AuthenticationSettings _authenticationSettings;
+
+        public string Street { get; private set; }
+        public string HouseNumber { get; private set; }
+        public string ApartamentNumber { get; private set; }
+        public string City { get; private set; }
+        public string ZipCode { get; private set; }
+        public string Country { get; private set; }
+
         public ClientRepository(AnkaraLabDbContext dbContext, IPasswordHasher<Client> passwordHasher, AuthenticationSettings authenticationSettings)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
@@ -63,21 +71,23 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
             return await query.ToListAsync();
         }
 
-        public async Task<bool> UpdateClientAsync(Client client)
+        public async Task UpdateClientAsync(int id, string street, string houseNumber, string apartamentNumber, string city, string zipCode, string country)
         {
-            var clientFromDb = await _dbContext.Clients.SingleOrDefaultAsync(c => c.Id == client.Id);
+            var clientFromDb = await _dbContext.Clients.SingleOrDefaultAsync(c => c.Id == id);
 
-            if (clientFromDb is null)
-            {
-                return false;
-            }
-            clientFromDb.Email = client.Email;
-            clientFromDb.Password = client.Password;
-            clientFromDb.Name = client.Name;
-            clientFromDb.Surname = client.Surname;
-            clientFromDb.Newsletter = client.Newsletter;
+            //if (clientFromDb is null)
+            //{
+            //    throw new NotImplementedException();
+            //}
+
+            clientFromDb.Id = id;
+            clientFromDb.Street = street;
+            clientFromDb.HouseNumber = houseNumber;
+            clientFromDb.ApartamentNumber = apartamentNumber;
+            clientFromDb.City = city;
+            clientFromDb.ZipCode = zipCode;
+            clientFromDb.Country = country;
             await _dbContext.SaveChangesAsync();
-            return true;
         }
 
         public async Task RegisterClientAsync(Client client)

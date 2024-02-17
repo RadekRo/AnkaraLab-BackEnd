@@ -10,7 +10,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces
         Task<Client?> GetClientAsync(int id);
         Task<ClientForShippingDto> GetClientShippingDetailsAsync(int id);
         Task RegisterClientAsync(Client client);
-        Task<bool> UpdateClientAsync(Client client);
+        Task UpdateClientAsync(int id, string street, string houseNumber, string apartamentNumber, string city, string zipCode, string country);
         Task<bool> DeleteClientAsync(int id);
         public string GenerateJwt(Client client);
         bool CheckPassword(LoginDto loginDto, Client client);

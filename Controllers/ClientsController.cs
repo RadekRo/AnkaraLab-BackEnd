@@ -3,6 +3,9 @@ using AnkaraLab_BackEnd.WebAPI.DTOs;
 using AnkaraLab_BackEnd.WebAPI.Infrastructure.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.Metrics;
+using System.IO;
+using System.Reflection.Emit;
 
 namespace AnkaraLab_BackEnd.WebAPI.Controllers
 {
@@ -94,6 +97,20 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             //return CreatedAtAction(nameof(GetClient), new { id = client.Id }, clientDto);
             return Ok();
         }
+
+        [HttpPost("update/{id:int}")]
+        public async Task<ActionResult> UpdateClient([FromBody] ClientForUpdateDto clientForUpdateDto, int id, string street, string houseNumber, string apartamentNumber, string city, string zipCode, string country)
+        {
+            var client = _mapper.Map<Client>(clientForUpdateDto);
+
+            if (client is null)
+            {
+                return BadRequest("Client is null");
+            }
+            await _clientRepository.UpdateClientAsync(id, street, houseNumber, apartamentNumber, city, zipCode, country);
+            return Ok();
+        }
+
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
