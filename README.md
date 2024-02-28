@@ -32,4 +32,4 @@ The testing suite covers unit tests, integration tests, and functional tests, en
 
 ---
 
-For further details, updates, and contributions, please visit our [GitHub repository](#) or reach out to our development team.
+For further details, updates, and contributions, please contact our lead developer: *radek@roclawski.com*
