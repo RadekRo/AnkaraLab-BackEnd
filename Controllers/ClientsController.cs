@@ -27,6 +27,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<ClientDto>>> GetClients()
+        // to zwraca Task<ActionResult<IEnumerable<ClientDto>>> ale od GetClient dostaje Task<IEnumerable<Client>>, wobec tego... Jak to działa?
         {
             var clients = await _clientRepository.GetClientsAsync();
             _logger.LogInformation("Estabilished connection with database. Retrieved all clients:");

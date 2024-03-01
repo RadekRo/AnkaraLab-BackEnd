@@ -26,6 +26,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
         }
 
         public async Task<bool> DeleteClientAsync(int id)
+            // wszystko spoko ale ten bool... moze potrzebny w programie
         {
             var client = await _dbContext.Clients.SingleOrDefaultAsync(c => c.Id == id);
 
@@ -44,6 +45,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
                 return await _dbContext.Clients.SingleOrDefaultAsync(c => c.Email == email);
         }
         public bool CheckPassword(LoginDto loginDto, Client client)
+            // po co  tu cały klient, jezeli do weryfikacji potrzeba tylko email a nawet tylko id klienta i hasło??? moze by tu jakies DTO?
         {
           var result =  _passwordHasher.VerifyHashedPassword(client, client.Password, loginDto.Password);
             if (result == PasswordVerificationResult.Success)
@@ -54,6 +56,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Infrastructure.Implementations
         }
        
         public async Task<Client?> GetClientAsync(int id)
+            // i tu sie zaczyna z tymi Taskami
         {
             return await _dbContext.Clients.SingleOrDefaultAsync(c => c.Id == id);
         }
