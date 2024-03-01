@@ -13,8 +13,10 @@ namespace AnkaraLab_BackEnd.WebAPI.Domain
         [Required]
         [ForeignKey(nameof(Product))]
         public int ProductId { get; set; }
+        // Product ID nie powinien być listą, jako że koszyk przechowuje listę produktów???
         public int Quantity { get; set; }
         [ForeignKey(nameof(Order))]
         public int OrderId { get; set; }
+      
     }
 }
