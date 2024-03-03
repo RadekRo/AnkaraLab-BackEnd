@@ -50,7 +50,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
         [HttpGet("shippingData/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ClientForShippingDto>> GetClientShippingDetails(int id)
+        public async Task<ActionResult<ClientForShippingDto?>> GetClientShippingDetails(int id)
         {
             var clientForShipping = await _clientRepository.GetClientAsync(id);
             
@@ -58,8 +58,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             {
                 return NotFound();
             }
-            var shippingDetails = _mapper.Map<ClientForShippingDto>(clientForShipping);
-            return Ok(shippingDetails);
+            return _mapper.Map<ClientForShippingDto>(clientForShipping) ;
         }
 
         [HttpDelete("delete/{id:int}")]
