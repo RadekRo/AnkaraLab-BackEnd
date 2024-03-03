@@ -69,9 +69,9 @@ namespace AnkaraLab_BackEnd.WebAPI.Controllers
             var clientToDelete = await _clientRepository.DeleteClientAsync(id);
             if (clientToDelete == false)
             {
-                return NotFound("There is no such item");
+                return NotFound("There is no such client");
             }
-            return Ok(clientToDelete);
+            return Ok();
         }
 
         [HttpPost("register")]
