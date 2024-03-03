@@ -17,6 +17,7 @@ namespace AnkaraLab_BackEnd.WebAPI.Domain
 
         //[ForeignKey(nameof(DeliveryAdress))]
         public List<ShippingAdress?>? DeliveryAdress { get; set; }
+        [Required]
         public string Email { get; set; } = string.Empty;
         [Required]
         public string Password { get; set; } = string.Empty;
